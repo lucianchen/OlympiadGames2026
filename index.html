@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fbf7ef">
-  <meta name="description" content="MOEMS 小学数学奥林匹克 · 五年级中文动画讲解。按月份与练习集整理，每题一步一步动起来。">
-  <title>奥数小工坊 · MOEMS 备赛</title>
+  <meta name="description" content="MOEMS Elementary Math Olympiad · Grade 5 animated walkthroughs. Step-by-step interactive problem solving.">
+  <title>Math Olympiad Studio · MOEMS Prep</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Crect width='44' height='44' rx='13' fill='%2320242e'/%3E%3Ccircle cx='15' cy='15' r='4.2' fill='%23ffcf5c'/%3E%3Cpath d='M8 31c3.6-6.4 8.1-9.6 13.5-9.6S32.4 24.6 36 31' stroke='%23ff8a3d' stroke-width='3.4' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='30' cy='15' r='2.4' fill='%237cd4ff'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -23,30 +23,30 @@
         </svg>
       </span>
       <span class="brand-text">
-        <span class="brand-name" id="brandName">奥数小工坊</span>
-        <span class="brand-sub" id="brandSub">MOEMS 备赛 · 五年级</span>
+        <span class="brand-name" id="brandName">Math Olympiad Studio</span>
+        <span class="brand-sub" id="brandSub">MOEMS Prep · Grade 5</span>
       </span>
     </a>
 
     <div class="side-scroll">
-      <div class="side-label" id="sideLabel">练习册 · 按月份</div>
-      <nav id="contestNav" class="contest-nav" aria-label="练习集导航"></nav>
+      <div class="side-label" id="sideLabel">Workbooks · by month</div>
+      <nav id="contestNav" class="contest-nav" aria-label="Workbook navigation"></nav>
 
       <div class="side-note">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5.9 1.2.9 2h5.4c0-.8.3-1.5.9-2A6 6 0 0 0 12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
         </svg>
-        <p id="sideNote">先自己想 3 分钟，再看动画。用键盘 <kbd>←</kbd> <kbd>→</kbd> 也能切换讲解步骤。</p>
+        <p id="sideNote">Try it yourself for 3 minutes before watching. Use <kbd>←</kbd> <kbd>→</kbd> to move through the steps.</p>
       </div>
     </div>
 
     <div class="side-foot">
       <span class="dot-live" aria-hidden="true"></span>
-      <span id="sideFoot">循序渐进 · 每天一套</span>
+      <span id="sideFoot">One set a day, step by step</span>
     </div>
   </aside>
 
-  <button class="menu-btn" id="menuBtn" aria-label="打开目录" aria-expanded="false">
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
   <div class="scrim" id="scrim" hidden></div>
@@ -57,10 +57,10 @@
         <div class="crumb" id="crumb"></div>
         <div class="topbar-right">
           <span class="progress-pill" id="progressPill"></span>
-          <span class="streak-pill" id="gradePill">五年级 · 中文讲解</span>
+          <span class="streak-pill" id="gradePill">Grade 5 · Bilingual</span>
           <div class="lang-toggle" id="langToggle" role="group" aria-label="Language">
-            <button type="button" data-lang="zh">中文</button>
             <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="zh">中文</button>
           </div>
         </div>
       </div>
@@ -68,8 +68,8 @@
       <div id="app"></div>
 
       <footer class="site-foot">
-        <p id="footP1">题目与答案版权归 <b>Mathematical Olympiads for Elementary and Middle Schools (MOEMS)</b> 所有，本站为家庭学习用的中文动画讲解。</p>
-        <p class="foot-small" id="footP2">讲解语言面向五年级同学：先看懂、再想巧、最后记住方法。</p>
+        <p id="footP1">Problems and answers © <b>Mathematical Olympiads for Elementary and Middle Schools (MOEMS)</b>. This site is a bilingual home-learning guide.</p>
+        <p class="foot-small" id="footP2">Explanations are written for fifth graders: understand first, then find the clever move.</p>
       </footer>
     </div>
   </main>

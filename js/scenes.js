@@ -516,5 +516,454 @@
     }
   };
 
+  /* ------------------------------------------------------------------ *
+   * 2025-26 1A — 数位与位值巧算 (7 + 77 + 777 + 7777 + 77777)
+   * ------------------------------------------------------------------ */
+  SCENES.q25_1a = {
+    create(stage, ctx) {
+      // 5 numbers lined up right
+      // rows: 7 (ones), 77 (tens,ones), 777 (hun,tens,ones), 7777 (th,hun,tens,ones), 77777 (t-th,th,hun,tens,ones)
+      // columns: col 0 (ten-thousands), col 1 (thousands), col 2 (hundreds), col 3 (tens), col 4 (ones)
+      const colX = [140, 200, 260, 320, 380];
+      const rows = [
+        { y: 55, digits: [null, null, null, null, '7'] },
+        { y: 95, digits: [null, null, null, '7', '7'] },
+        { y: 135, digits: [null, null, '7', '7', '7'] },
+        { y: 175, digits: [null, '7', '7', '7', '7'] },
+        { y: 215, digits: ['7', '7', '7', '7', '7'] }
+      ];
+
+      const rowSvgs = rows.map((r, ri) => {
+        return r.digits.map((d, ci) => {
+          if (!d) return '';
+          return `<g class="d-cell col-${ci} row-${ri}" transform="translate(${colX[ci]}, ${r.y})">
+            <rect class="d-bg" x="-20" y="-18" width="40" height="36" rx="8"/>
+            <text class="d-text" x="0" y="8" text-anchor="middle">${d}</text>
+          </g>`;
+        }).join('');
+      }).join('');
+
+      stage.innerHTML = `
+        <div class="scene scene-q25-1a" data-step="0">
+          <svg class="scene-svg" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet">
+            <g class="col-highlight col-hl-4"><rect x="355" y="32" width="50" height="230" rx="12"/></g>
+            <g class="col-highlight col-hl-3"><rect x="295" y="72" width="50" height="190" rx="12"/></g>
+            <g class="col-highlight col-hl-2"><rect x="235" y="112" width="50" height="150" rx="12"/></g>
+            <g class="col-highlight col-hl-1"><rect x="175" y="152" width="50" height="110" rx="12"/></g>
+            <g class="col-highlight col-hl-0"><rect x="115" y="192" width="50" height="70" rx="12"/></g>
+
+            <text class="plus-sign" x="96" y="222">+</text>
+            <g class="digits-grid">${rowSvgs}</g>
+            <line class="sum-divider" x1="85" y1="246" x2="420" y2="246" stroke="#c0c8d8" stroke-width="2.5" stroke-linecap="round"/>
+
+            <!-- place values panel -->
+            <g class="pv-panel" transform="translate(450, 48)">
+              <rect class="pv-bg" width="175" height="210" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text class="pv-title" x="18" y="28">Place Values</text>
+              <text class="pv-item pv-0" x="18" y="58">10k: 1 × 70k = 70,000</text>
+              <text class="pv-item pv-1" x="18" y="88">1k: 2 × 7k = 14,000</text>
+              <text class="pv-item pv-2" x="18" y="118">100: 3 × 700 = 2,100</text>
+              <text class="pv-item pv-3" x="18" y="148">10: 4 × 70 = 280</text>
+              <text class="pv-item pv-4" x="18" y="178">1: 5 × 7 = 35</text>
+            </g>
+
+            <g class="final-sum" transform="translate(320, 310)">
+              <text class="sum-text" text-anchor="middle">
+                Total = <tspan class="total-val">0</tspan>
+              </text>
+            </g>
+          </svg>
+          <div class="stamp">${T('scene.q25_1a.answer')}</div>
+        </div>`;
+
+      const root = stage.querySelector('.scene-q25-1a');
+      const totalEl = root.querySelector('.total-val');
+      let last = -1;
+
+      return {
+        render(step, animate) {
+          root.dataset.step = step;
+          if (step >= 4) {
+            countUp(totalEl, 86415, { duration: animate ? 800 : 0 });
+          } else if (step === 3) {
+            countUp(totalEl, 84000, { duration: animate ? 500 : 0 });
+          } else if (step === 2) {
+            countUp(totalEl, 2415, { duration: animate ? 500 : 0 });
+          } else if (step === 1) {
+            countUp(totalEl, 35, { duration: animate ? 400 : 0 });
+          } else {
+            totalEl._val = 0;
+            totalEl.textContent = '0';
+          }
+          if (step === 4 && last < 4) ctx.celebrate(root.querySelector('.stamp'));
+          last = step;
+        }
+      };
+    }
+  };
+
+  /* ------------------------------------------------------------------ *
+   * 2025-26 1B — 长方形拼接与周长 (7 congruent rectangles, area 70)
+   * ------------------------------------------------------------------ */
+  SCENES.q25_1b = {
+    create(stage, ctx) {
+      // Large rectangle: width = 7 units (e.g. 7 * 32 = 224), height = 10 units (10 * 24 = 240)
+      // Left part: width = 5 units (160), 5 rectangles stacked each height = 2 units (48)
+      // Right part: width = 2 units (64), 2 rectangles stacked each height = 5 units (120)
+      const ox = 208, oy = 55;
+      const wSmall = 160, hStack = 48; // left 5: width 160 (5x), height 48 each (x) -> wait, width is y=5, height is x=2!
+      const wRight = 64, hRight = 120; // right 2: width x=2 (64), height y=5 (120)!
+      // total width = 160 + 64 = 224 (7 units: 7 * 32)
+      // total height = 5 * 48 = 240 (10 units: 10 * 24) = 2 * 120 = 240!
+
+      const leftRects = [0, 1, 2, 3, 4].map((i) => `
+        <g class="sub-rect left-rect l-${i}" transform="translate(${ox}, ${oy + i * hStack})">
+          <rect width="${wSmall}" height="${hStack}" rx="4"/>
+          <text class="sub-rect-lbl" x="${wSmall / 2}" y="${hStack / 2 + 5}" text-anchor="middle">10 cm²</text>
+        </g>`).join('');
+
+      const rightRects = [0, 1].map((i) => `
+        <g class="sub-rect right-rect r-${i}" transform="translate(${ox + wSmall}, ${oy + i * hRight})">
+          <rect width="${wRight}" height="${hRight}" rx="4"/>
+          <text class="sub-rect-lbl" x="${wRight / 2}" y="${hRight / 2 + 5}" text-anchor="middle">10 cm²</text>
+        </g>`).join('');
+
+      stage.innerHTML = `
+        <div class="scene scene-q25-1b" data-step="0">
+          <svg class="scene-svg" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet">
+            <g class="large-rect-outline">
+              <rect x="${ox}" y="${oy}" width="${wSmall + wRight}" height="${5 * hStack}" rx="8" class="main-border"/>
+            </g>
+
+            <g class="rects-group">${leftRects}${rightRects}</g>
+
+            <!-- Dim labels -->
+            <g class="dim-labels">
+              <!-- Top width: 5 cm + 2 cm = 7 cm -->
+              <path class="dim-dim dim-w-l" d="M${ox} ${oy - 12} h${wSmall}"/>
+              <text class="dim-txt dim-w-l-txt" x="${ox + wSmall / 2}" y="${oy - 18}" text-anchor="middle">y = 5 cm</text>
+
+              <path class="dim-dim dim-w-r" d="M${ox + wSmall} ${oy - 12} h${wRight}"/>
+              <text class="dim-txt dim-w-r-txt" x="${ox + wSmall + wRight / 2}" y="${oy - 18}" text-anchor="middle">x = 2 cm</text>
+
+              <!-- Left height: 5x = 10 cm -->
+              <path class="dim-dim dim-h-l" d="M${ox - 14} ${oy} v${5 * hStack}"/>
+              <text class="dim-txt dim-h-l-txt" x="${ox - 24}" y="${oy + 120}" text-anchor="end">Height = 5x = 10 cm</text>
+
+              <!-- Right height: 2y = 10 cm -->
+              <path class="dim-dim dim-h-r" d="M${ox + wSmall + wRight + 14} ${oy} v${5 * hStack}"/>
+              <text class="dim-txt dim-h-r-txt" x="${ox + wSmall + wRight + 24}" y="${oy + 120}" text-anchor="start">Height = 2y = 10 cm</text>
+
+              <!-- Total width label at bottom -->
+              <text class="dim-txt dim-total-w" x="${ox + (wSmall + wRight) / 2}" y="${oy + 5 * hStack + 32}" text-anchor="middle">
+                Total Width = 5 + 2 = <b>7 cm</b>
+              </text>
+            </g>
+
+            <g class="b-panel" transform="translate(320, 360)">
+              <text class="b-calc" text-anchor="middle">
+                Perimeter = 2 × (7 + 10) = <tspan class="p-ans">0</tspan> cm
+              </text>
+            </g>
+          </svg>
+          <div class="stamp">${T('scene.q25_1b.answer')}</div>
+        </div>`;
+
+      const root = stage.querySelector('.scene-q25-1b');
+      const pAnsEl = root.querySelector('.p-ans');
+      let last = -1;
+
+      return {
+        render(step, animate) {
+          root.dataset.step = step;
+          if (step >= 4) {
+            countUp(pAnsEl, 34, { duration: animate ? 600 : 0 });
+          } else {
+            pAnsEl._val = 0;
+            pAnsEl.textContent = '0';
+          }
+          if (step === 4 && last < 4) ctx.celebrate(root.querySelector('.stamp'));
+          last = step;
+        }
+      };
+    }
+  };
+
+  /* ------------------------------------------------------------------ *
+   * 2025-26 1C — 贴纸数量与和倍关系 (Ashley, Beth, Connie, Deb = 46)
+   * ------------------------------------------------------------------ */
+  SCENES.q25_1c = {
+    create(stage, ctx) {
+      // Four friends: Connie (C), Beth (C+6), Ashley (2C+12), Deb (3C)
+      // Visual bar models for each person
+      stage.innerHTML = `
+        <div class="scene scene-q25-1c" data-step="0">
+          <svg class="scene-svg" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet">
+            <!-- Connie -->
+            <g class="person-row p-connie" transform="translate(60, 50)">
+              <text class="p-name" x="0" y="24">Connie</text>
+              <rect class="bar bar-c" x="90" y="4" width="60" height="28" rx="6"/>
+              <text class="bar-lbl" x="120" y="23" text-anchor="middle">C</text>
+              <text class="val-lbl v-c" x="165" y="24">? stickers</text>
+            </g>
+
+            <!-- Beth -->
+            <g class="person-row p-beth" transform="translate(60, 100)">
+              <text class="p-name" x="0" y="24">Beth</text>
+              <rect class="bar bar-c" x="90" y="4" width="60" height="28" rx="6"/>
+              <text class="bar-lbl" x="120" y="23" text-anchor="middle">C</text>
+              <rect class="bar bar-extra" x="156" y="4" width="90" height="28" rx="6"/>
+              <text class="bar-lbl" x="201" y="23" text-anchor="middle">+ 6</text>
+              <text class="val-lbl v-b" x="260" y="24">? stickers</text>
+            </g>
+
+            <!-- Ashley -->
+            <g class="person-row p-ashley" transform="translate(60, 150)">
+              <text class="p-name" x="0" y="24">Ashley</text>
+              <rect class="bar bar-c" x="90" y="4" width="60" height="28" rx="6"/>
+              <text class="bar-lbl" x="120" y="23" text-anchor="middle">C</text>
+              <rect class="bar bar-c" x="154" y="4" width="60" height="28" rx="6"/>
+              <text class="bar-lbl" x="184" y="23" text-anchor="middle">C</text>
+              <rect class="bar bar-extra" x="218" y="4" width="130" height="28" rx="6"/>
+              <text class="bar-lbl" x="283" y="23" text-anchor="middle">+ 12</text>
+              <text class="val-lbl v-a" x="360" y="24">? stickers</text>
+            </g>
+
+            <!-- Deb -->
+            <g class="person-row p-deb" transform="translate(60, 200)">
+              <text class="p-name" x="0" y="24">Deb</text>
+              <rect class="bar bar-c" x="90" y="4" width="60" height="28" rx="6"/>
+              <text class="bar-lbl" x="120" y="23" text-anchor="middle">C</text>
+              <rect class="bar bar-c" x="154" y="4" width="60" height="28" rx="6"/>
+              <text class="bar-lbl" x="184" y="23" text-anchor="middle">C</text>
+              <rect class="bar bar-c" x="218" y="4" width="60" height="28" rx="6"/>
+              <text class="bar-lbl" x="248" y="23" text-anchor="middle">C</text>
+              <text class="val-lbl v-d" x="295" y="24">? stickers</text>
+            </g>
+
+            <!-- Sum block -->
+            <g class="c-sum-block" transform="translate(60, 260)">
+              <rect class="sum-box" width="520" height="75" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+              <text class="sum-eq-1" x="260" y="30" text-anchor="middle">
+                Total = 7C + 18 = 46 stickers
+              </text>
+              <text class="sum-eq-2" x="260" y="58" text-anchor="middle">
+                7C = 28 → <tspan class="c-val">C = 4</tspan> | Beth = 4 + 6 = <tspan class="b-val">10</tspan>
+              </text>
+            </g>
+          </svg>
+          <div class="stamp">${T('scene.q25_1c.answer')}</div>
+        </div>`;
+
+      const root = stage.querySelector('.scene-q25-1c');
+      const vCEl = root.querySelector('.v-c');
+      const vBEl = root.querySelector('.v-b');
+      const vAEl = root.querySelector('.v-a');
+      const vDEl = root.querySelector('.v-d');
+      let last = -1;
+
+      return {
+        render(step, animate) {
+          root.dataset.step = step;
+          if (step >= 4) {
+            vCEl.textContent = '= 4';
+            vBEl.textContent = '= 10 (Answer!)';
+            vAEl.textContent = '= 20';
+            vDEl.textContent = '= 12';
+          } else {
+            vCEl.textContent = '? stickers';
+            vBEl.textContent = '? stickers';
+            vAEl.textContent = '? stickers';
+            vDEl.textContent = '? stickers';
+          }
+          if (step === 4 && last < 4) ctx.celebrate(root.querySelector('.stamp'));
+          last = step;
+        }
+      };
+    }
+  };
+
+  /* ------------------------------------------------------------------ *
+   * 2025-26 1D — 等差数列与三位数区间 (20, 44, 68... 1004)
+   * ------------------------------------------------------------------ */
+  SCENES.q25_1d = {
+    create(stage, ctx) {
+      // Number line visualization
+      stage.innerHTML = `
+        <div class="scene scene-q25-1d" data-step="0">
+          <svg class="scene-svg" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet">
+            <!-- Shaded range [100, 999] -->
+            <rect class="range-zone" x="145" y="90" width="370" height="70" rx="8" fill="#e8f4ff" stroke="#bcd8fc" stroke-dasharray="4 4"/>
+            <text class="range-tag" x="330" y="112" text-anchor="middle">Three-Digit Zone [100 ~ 999]</text>
+
+            <!-- Main axis -->
+            <line class="axis-line" x1="40" y1="180" x2="600" y2="180" stroke="#718096" stroke-width="3" stroke-linecap="round"/>
+
+            <!-- Points on the axis -->
+            <!-- 20 -->
+            <g class="pt pt-start" transform="translate(60, 180)">
+              <circle r="6" fill="#718096"/>
+              <text class="pt-lbl" y="28" text-anchor="middle">20</text>
+              <text class="pt-sub" y="-14" text-anchor="middle">Start</text>
+            </g>
+
+            <!-- 92 -->
+            <g class="pt pt-92" transform="translate(130, 180)">
+              <circle r="5" fill="#a0aec0"/>
+              <text class="pt-lbl" y="28" text-anchor="middle">92</text>
+            </g>
+
+            <!-- Jump from 92 to 116 -->
+            <path class="jump-arc j-first" d="M130 172 Q150 140 170 172" fill="none" stroke="#e53e3e" stroke-width="2.5" marker-end="url(#arrow)"/>
+            <text class="jump-txt" x="150" y="145" text-anchor="middle">+24</text>
+
+            <!-- 116 (First 3-digit) -->
+            <g class="pt pt-first" transform="translate(170, 180)">
+              <circle r="7" fill="#3182ce"/>
+              <text class="pt-lbl strong" y="28" text-anchor="middle">116</text>
+              <text class="pt-sub col-blue" y="-14" text-anchor="middle">First 3-digit</text>
+            </g>
+
+            <!-- Jumps in middle -->
+            <path class="jump-big-arc" d="M170 170 Q325 80 480 170" fill="none" stroke="#3182ce" stroke-width="3" stroke-dasharray="6 4"/>
+            <text class="jump-big-lbl" x="325" y="95" text-anchor="middle">36 jumps of 24 (864 total span)</text>
+
+            <!-- 980 (Last 3-digit) -->
+            <g class="pt pt-last" transform="translate(480, 180)">
+              <circle r="7" fill="#3182ce"/>
+              <text class="pt-lbl strong" y="28" text-anchor="middle">980</text>
+              <text class="pt-sub col-blue" y="-14" text-anchor="middle">Last 3-digit</text>
+            </g>
+
+            <!-- Jump from 980 to 1004 -->
+            <path class="jump-arc j-last" d="M480 172 Q515 140 550 172" fill="none" stroke="#e53e3e" stroke-width="2.5"/>
+            <text class="jump-txt" x="515" y="145" text-anchor="middle">+24</text>
+
+            <!-- 1004 -->
+            <g class="pt pt-end" transform="translate(550, 180)">
+              <circle r="6" fill="#718096"/>
+              <text class="pt-lbl" y="28" text-anchor="middle">1004</text>
+              <text class="pt-sub" y="-14" text-anchor="middle">End</text>
+            </g>
+
+            <!-- Formula panel -->
+            <g class="calc-panel" transform="translate(120, 255)">
+              <rect width="400" height="95" rx="14" fill="#ffffff" stroke="#cbd5e0" stroke-width="1.5"/>
+              <text class="calc-row-1" x="200" y="32" text-anchor="middle">
+                Span = 980 − 116 = 864
+              </text>
+              <text class="calc-row-2" x="200" y="58" text-anchor="middle">
+                Number of Jumps = 864 ÷ 24 = 36
+              </text>
+              <text class="calc-row-3" x="200" y="82" text-anchor="middle">
+                Terms = 36 + 1 = <tspan class="terms-count">0</tspan> numbers
+              </text>
+            </g>
+          </svg>
+          <div class="stamp">${T('scene.q25_1d.answer')}</div>
+        </div>`;
+
+      const root = stage.querySelector('.scene-q25-1d');
+      const termsEl = root.querySelector('.terms-count');
+      let last = -1;
+
+      return {
+        render(step, animate) {
+          root.dataset.step = step;
+          if (step >= 4) {
+            countUp(termsEl, 37, { duration: animate ? 600 : 0 });
+          } else {
+            termsEl._val = 0;
+            termsEl.textContent = '0';
+          }
+          if (step === 4 && last < 4) ctx.celebrate(root.querySelector('.stamp'));
+          last = step;
+        }
+      };
+    }
+  };
+
+  /* ------------------------------------------------------------------ *
+   * 2025-26 1E — 10 × 15 网格互斥涂黑 (8 columns × 5 rows = 40)
+   * ------------------------------------------------------------------ */
+  SCENES.q25_1e = {
+    create(stage, ctx) {
+      // 10 rows (0..9), 15 cols (0..14)
+      const numRows = 10;
+      const numCols = 15;
+      const cellSize = 22;
+      const ox = 70, oy = 60;
+
+      let cellsSvg = '';
+      for (let r = 0; r < numRows; r++) {
+        for (let c = 0; c < numCols; c++) {
+          const isShaded = (r % 2 === 0) && (c % 2 === 0);
+          const x = ox + c * cellSize;
+          const y = oy + r * cellSize;
+          cellsSvg += `<rect class="grid-cell r-${r} c-${c} ${isShaded ? 'is-target' : ''}" 
+            x="${x}" y="${y}" width="${cellSize - 2}" height="${cellSize - 2}" rx="3"/>`;
+        }
+      }
+
+      // Col header indicators (1, 3, 5, 7, 9, 11, 13, 15)
+      let colIndicators = '';
+      for (let c = 0; c < numCols; c += 2) {
+        colIndicators += `<text class="c-ind" x="${ox + c * cellSize + 10}" y="${oy - 8}" text-anchor="middle">${c + 1}</text>`;
+      }
+
+      // Row header indicators (1, 3, 5, 7, 9)
+      let rowIndicators = '';
+      for (let r = 0; r < numRows; r += 2) {
+        rowIndicators += `<text class="r-ind" x="${ox - 12}" y="${oy + r * cellSize + 15}" text-anchor="end">${r + 1}</text>`;
+      }
+
+      stage.innerHTML = `
+        <div class="scene scene-q25-1e" data-step="0">
+          <svg class="scene-svg" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet">
+            <g class="col-inds">${colIndicators}</g>
+            <g class="row-inds">${rowIndicators}</g>
+            <g class="grid-cells">${cellsSvg}</g>
+
+            <!-- Explanation side block -->
+            <g class="e-calc-box" transform="translate(425, 70)">
+              <rect width="185" height="195" rx="14" fill="#ffffff" stroke="#cbd5e0" stroke-width="1.5"/>
+              <text class="ec-head" x="20" y="32">Maximum Shading</text>
+              <text class="ec-line el-1" x="20" y="66">15 Columns:</text>
+              <text class="ec-sub es-1" x="20" y="88">→ 8 odd cols</text>
+              <text class="ec-line el-2" x="20" y="122">10 Rows:</text>
+              <text class="ec-sub es-2" x="20" y="144">→ 5 odd rows</text>
+              <line x1="20" y1="158" x2="165" y2="158" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text class="ec-total" x="20" y="182">8 × 5 = <tspan class="shaded-count">0</tspan></text>
+            </g>
+
+            <text class="rule-hint" x="235" y="315" text-anchor="middle">
+              No two shaded squares touch by edge or corner
+            </text>
+          </svg>
+          <div class="stamp">${T('scene.q25_1e.answer')}</div>
+        </div>`;
+
+      const root = stage.querySelector('.scene-q25-1e');
+      const countEl = root.querySelector('.shaded-count');
+      let last = -1;
+
+      return {
+        render(step, animate) {
+          root.dataset.step = step;
+          if (step >= 4) {
+            countUp(countEl, 40, { duration: animate ? 600 : 0 });
+          } else if (step === 3) {
+            countUp(countEl, 40, { duration: animate ? 700 : 0 });
+          } else {
+            countEl._val = 0;
+            countEl.textContent = '0';
+          }
+          if (step === 4 && last < 4) ctx.celebrate(root.querySelector('.stamp'));
+          last = step;
+        }
+      };
+    }
+  };
+
   window.SCENES = SCENES;
 })();

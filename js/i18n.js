@@ -107,7 +107,38 @@
       'scene.q1e.lid': '盖子',
       'scene.q1e.edge': '{len} 英寸 × {n} 条 = {sum}',
       'scene.q1e.perimeter': '周长 = 56 + 32 + 24 =',
-      'scene.q1e.answer': '周长 <b>{n}</b> 英寸'
+      'scene.q1e.answer': '周长 <b>{n}</b> 英寸',
+
+      'scene.q25_1a.tenThousand': '万位：1 × 70,000 = 70,000',
+      'scene.q25_1a.thousand': '千位：2 × 7,000 = 14,000',
+      'scene.q25_1a.hundred': '百位：3 × 700 = 2,100',
+      'scene.q25_1a.ten': '十位：4 × 70 = 280',
+      'scene.q25_1a.one': '个位：5 × 7 = 35',
+      'scene.q25_1a.sum': '总和 = 70000 + 14000 + 2100 + 280 + 35',
+      'scene.q25_1a.answer': '总和 <b>86,415</b>',
+
+      'scene.q25_1b.areaNote': '每个小长方形面积 = 70 ÷ 7 = <b>10</b> cm²',
+      'scene.q25_1b.heightMatch': '左边 5 个叠放高 = 右边 2 个立放高：5x = 2y = 10',
+      'scene.q25_1b.dims': '小长方形：宽 x = <b>2</b> cm，长 y = <b>5</b> cm',
+      'scene.q25_1b.largeDims': '大长方形：宽 = 5 + 2 = <b>7</b> cm，高 = <b>10</b> cm',
+      'scene.q25_1b.answer': '周长 <b>34</b> cm',
+
+      'scene.q25_1c.baseUnit': '以 Connie 为基准 1 份（C）',
+      'scene.q25_1c.equation': 'C + (C+6) + (2C+12) + 3C = 7C + 18 = 46',
+      'scene.q25_1c.solve': '7C = 28 → C = 4，Beth = 4 + 6 = <b>10</b>',
+      'scene.q25_1c.answer': 'Beth 有 <b>10</b> 张贴纸',
+
+      'scene.q25_1d.range': '三位数范围：100 ~ 999',
+      'scene.q25_1d.bounds': '首个三位数 = <b>116</b>，末个三位数 = <b>980</b>',
+      'scene.q25_1d.jumps': '间隔数 = (980 − 116) ÷ 24 = <b>36</b> 次跳跃',
+      'scene.q25_1d.count': '数的个数 = 36 + 1 = <b>37</b> 个',
+      'scene.q25_1d.answer': '三位数共 <b>37</b> 个',
+
+      'scene.q25_1e.rule': '相邻及对角顶点均不能相连（8 邻域互斥）',
+      'scene.q25_1e.cols': '15 列隔列涂：第 1, 3, 5, 7, 9, 11, 13, 15 列（共 <b>8</b> 列）',
+      'scene.q25_1e.rows': '10 行隔行涂：第 1, 3, 5, 7, 9 行（共 <b>5</b> 行）',
+      'scene.q25_1e.total': '最大涂黑数 = 8 × 5 = <b>40</b> 个',
+      'scene.q25_1e.answer': '最多涂黑 <b>40</b> 个方格'
     },
 
     en: {
@@ -215,12 +246,43 @@
       'scene.q1e.lid': 'Lid',
       'scene.q1e.edge': '{len}″ × {n} = {sum}',
       'scene.q1e.perimeter': 'Perimeter = 56 + 32 + 24 =',
-      'scene.q1e.answer': 'Perimeter <b>{n}</b> in'
+      'scene.q1e.answer': 'Perimeter <b>{n}</b> in',
+
+      'scene.q25_1a.tenThousand': 'Ten-thousands: 1 × 70,000 = 70,000',
+      'scene.q25_1a.thousand': 'Thousands: 2 × 7,000 = 14,000',
+      'scene.q25_1a.hundred': 'Hundreds: 3 × 700 = 2,100',
+      'scene.q25_1a.ten': 'Tens: 4 × 70 = 280',
+      'scene.q25_1a.one': 'Ones: 5 × 7 = 35',
+      'scene.q25_1a.sum': 'Total = 70,000 + 14,000 + 2,100 + 280 + 35',
+      'scene.q25_1a.answer': 'Sum <b>86,415</b>',
+
+      'scene.q25_1b.areaNote': 'Each small rect area = 70 ÷ 7 = <b>10</b> cm²',
+      'scene.q25_1b.heightMatch': 'Left 5 stacked = right 2 standing: 5x = 2y = 10',
+      'scene.q25_1b.dims': 'Small rect: width x = <b>2</b> cm, length y = <b>5</b> cm',
+      'scene.q25_1b.largeDims': 'Large rect: width = 5 + 2 = <b>7</b> cm, height = <b>10</b> cm',
+      'scene.q25_1b.answer': 'Perimeter <b>34</b> cm',
+
+      'scene.q25_1c.baseUnit': 'Let Connie’s stickers be C (1 unit)',
+      'scene.q25_1c.equation': 'C + (C+6) + (2C+12) + 3C = 7C + 18 = 46',
+      'scene.q25_1c.solve': '7C = 28 → C = 4, Beth = 4 + 6 = <b>10</b>',
+      'scene.q25_1c.answer': 'Beth has <b>10</b> stickers',
+
+      'scene.q25_1d.range': 'Three-digit range: 100 ~ 999',
+      'scene.q25_1d.bounds': 'First 3-digit = <b>116</b>, Last 3-digit = <b>980</b>',
+      'scene.q25_1d.jumps': 'Jumps = (980 − 116) ÷ 24 = <b>36</b>',
+      'scene.q25_1d.count': 'Total numbers = 36 + 1 = <b>37</b>',
+      'scene.q25_1d.answer': '<b>37</b> three-digit numbers',
+
+      'scene.q25_1e.rule': 'No shared edges or corners (isolated 8-neighborhood)',
+      'scene.q25_1e.cols': '8 odd columns of 15: 1, 3, 5, 7, 9, 11, 13, 15',
+      'scene.q25_1e.rows': '5 odd rows of 10: 1, 3, 5, 7, 9',
+      'scene.q25_1e.total': 'Max shaded = 8 × 5 = <b>40</b> squares',
+      'scene.q25_1e.answer': 'Maximum <b>40</b> squares'
     }
   };
 
   const KEY = 'moems-lang-v1';
-  let lang = 'zh';
+  let lang = 'en';
   try {
     const saved = localStorage.getItem(KEY);
     if (saved === 'en' || saved === 'zh') lang = saved;
