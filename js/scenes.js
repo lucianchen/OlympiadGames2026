@@ -965,5 +965,331 @@
     }
   };
 
+  
+  /* ------------------------------------------------------------------ *
+   * Generic Animated Math Diagram Helper
+   * ------------------------------------------------------------------ */
+  function makeBasicScene(config) {
+    return {
+      create(stage, ctx) {
+        stage.innerHTML = `
+          <div class="scene scene-math-card" data-step="0">
+            <svg class="scene-svg" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet">
+              <rect x="40" y="30" width="560" height="340" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+              <text class="sc-title" x="320" y="70" text-anchor="middle">${config.title || 'Interactive Step'}</text>
+              <g class="sc-steps">${config.svgContent || ''}</g>
+              <g class="sc-ans-box" transform="translate(320, 325)">
+                <text class="sc-ans-txt" text-anchor="middle">
+                  ${config.ansLabel || 'Result'}: <tspan class="sc-ans-val">0</tspan>
+                </text>
+              </g>
+            </svg>
+            <div class="stamp">${config.stamp || 'Answer'}</div>
+          </div>`;
+        const root = stage.querySelector('.scene-math-card');
+        const ansEl = root.querySelector('.sc-ans-val');
+        let last = -1;
+        return {
+          render(step, animate) {
+            root.dataset.step = step;
+            const items = root.querySelectorAll('.step-item');
+            items.forEach((item, idx) => {
+              item.classList.toggle('is-visible', idx <= step);
+            });
+            if (step >= (config.finalStep || 2)) {
+              if (config.numericAnswer != null) {
+                countUp(ansEl, config.numericAnswer, { duration: animate ? 600 : 0 });
+              } else {
+                ansEl.textContent = config.answerStr || '';
+              }
+            } else {
+              ansEl._val = 0;
+              ansEl.textContent = '0';
+            }
+            if (step >= (config.finalStep || 2) && last < (config.finalStep || 2)) {
+              ctx.celebrate(root.querySelector('.stamp'));
+            }
+            last = step;
+          }
+        };
+      }
+    };
+  }
+
+  // 2023-24 Scenes
+  SCENES.q23_1a = makeBasicScene({
+    title: 'Friendly Pairs to 100',
+    svgContent: `
+      <g class="step-item step-0" transform="translate(80, 110)">
+        <rect width="480" height="42" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+        <text x="240" y="26" text-anchor="middle" font-size="16" font-weight="700" fill="#1e293b">73 + 34 + 28 + 27 + 66 + 12</text>
+      </g>
+      <g class="step-item step-1" transform="translate(80, 170)">
+        <rect x="0" y="0" width="150" height="46" rx="10" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+        <text x="75" y="28" text-anchor="middle" font-weight="800" fill="#0369a1">73 + 27 = 100</text>
+        <rect x="165" y="0" width="150" height="46" rx="10" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+        <text x="240" y="28" text-anchor="middle" font-weight="800" fill="#0369a1">34 + 66 = 100</text>
+        <rect x="330" y="0" width="150" height="46" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="405" y="28" text-anchor="middle" font-weight="800" fill="#b45309">28 + 12 = 40</text>
+      </g>
+      <g class="step-item step-2" transform="translate(80, 240)">
+        <text x="240" y="25" text-anchor="middle" font-size="20" font-weight="800" fill="#2563eb">100 + 100 + 40 = 240</text>
+      </g>
+    `,
+    ansLabel: 'Sum',
+    numericAnswer: 240,
+    stamp: 'Answer <b>240</b>',
+    finalStep: 2
+  });
+
+  SCENES.q23_1b = makeBasicScene({
+    title: '4×4 Grid Area − 4 Corner Triangles',
+    svgContent: `
+      <g transform="translate(140, 100)">
+        <!-- 4x4 Grid -->
+        <rect width="160" height="160" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+        <line x1="40" y1="0" x2="40" y2="160" stroke="#cbd5e1" stroke-width="1.5"/>
+        <line x1="80" y1="0" x2="80" y2="160" stroke="#cbd5e1" stroke-width="1.5"/>
+        <line x1="120" y1="0" x2="120" y2="160" stroke="#cbd5e1" stroke-width="1.5"/>
+        <line x1="0" y1="40" x2="160" y2="40" stroke="#cbd5e1" stroke-width="1.5"/>
+        <line x1="0" y1="80" x2="160" y2="80" stroke="#cbd5e1" stroke-width="1.5"/>
+        <line x1="0" y1="120" x2="160" y2="120" stroke="#cbd5e1" stroke-width="1.5"/>
+        <!-- Octagon polygon -->
+        <polygon points="80,0 160,40 160,120 80,160 0,120 0,40" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5" opacity="0.85"/>
+        <!-- 4 cut corners -->
+        <polygon points="0,0 80,0 0,40" fill="#fee2e2" stroke="#ef4444"/>
+        <polygon points="80,0 160,0 160,40" fill="#fee2e2" stroke="#ef4444"/>
+        <polygon points="160,120 160,160 80,160" fill="#fee2e2" stroke="#ef4444"/>
+        <polygon points="0,120 80,160 0,160" fill="#fee2e2" stroke="#ef4444"/>
+      </g>
+      <g transform="translate(340, 120)">
+        <text class="step-item step-0" x="0" y="24" font-size="14" font-weight="700" fill="#334155">Total Grid = 4 × 4 = 16</text>
+        <text class="step-item step-1" x="0" y="60" font-size="14" font-weight="700" fill="#dc2626">Each Corner = (2 × 1) ÷ 2 = 1</text>
+        <text class="step-item step-1" x="0" y="86" font-size="14" font-weight="700" fill="#dc2626">4 Corners Total = 4 × 1 = 4</text>
+        <text class="step-item step-2" x="0" y="125" font-size="16" font-weight="800" fill="#2563eb">Octagon = 16 − 4 = 12</text>
+      </g>
+    `,
+    ansLabel: 'Octagon Area',
+    numericAnswer: 12,
+    stamp: 'Area <b>12</b> sq units',
+    finalStep: 2
+  });
+
+  SCENES.q23_1c = makeBasicScene({
+    title: 'Multiples of LCM(20, 35) = 140',
+    svgContent: `
+      <g transform="translate(80, 110)">
+        <rect width="480" height="50" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+        <text x="240" y="32" text-anchor="middle" font-size="16" font-weight="800" fill="#0f172a">20 = 2² × 5 | 35 = 5 × 7 → LCM = 140</text>
+      </g>
+      <g class="step-item step-1" transform="translate(60, 185)">
+        <text x="260" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#2563eb">
+          140, 280, 420, 560, 700, 840, 980
+        </text>
+      </g>
+      <g class="step-item step-2" transform="translate(60, 235)">
+        <text x="260" y="25" text-anchor="middle" font-size="16" font-weight="800" fill="#1e293b">
+          Range [100 ~ 999]: 140 × 1 to 140 × 7 → 7 numbers
+        </text>
+      </g>
+    `,
+    ansLabel: 'Count',
+    numericAnswer: 7,
+    stamp: 'Count <b>7</b>',
+    finalStep: 2
+  });
+
+  SCENES.q23_1d = makeBasicScene({
+    title: 'Money Transfer: Michael (5x) & Isabella (x)',
+    svgContent: `
+      <g transform="translate(80, 110)">
+        <text x="0" y="20" font-weight="800" fill="#1e293b">Start:</text>
+        <rect x="90" y="2" width="250" height="26" rx="6" fill="#3b82f6"/>
+        <text x="215" y="20" text-anchor="middle" fill="#fff" font-weight="800">Michael (5x)</text>
+        <rect x="360" y="2" width="50" height="26" rx="6" fill="#f59e0b"/>
+        <text x="385" y="20" text-anchor="middle" fill="#fff" font-weight="800">I (x)</text>
+      </g>
+      <g class="step-item step-1" transform="translate(80, 165)">
+        <text x="0" y="20" font-weight="800" fill="#1e293b">Transfer:</text>
+        <text x="90" y="20" font-size="14" font-weight="700" fill="#dc2626">Michael gives $36 → Isabella</text>
+        <text x="90" y="44" font-size="14" font-weight="700" fill="#2563eb">New: Isabella (x + 36) = 2 × (5x − 36)</text>
+      </g>
+      <g class="step-item step-2" transform="translate(80, 240)">
+        <text x="240" y="20" text-anchor="middle" font-size="16" font-weight="800" fill="#059669">
+          9x = 108 → x = 12 → Michael = 5 × 12 = $60
+        </text>
+      </g>
+    `,
+    ansLabel: 'Michael Started With',
+    numericAnswer: 60,
+    stamp: 'Michael has <b>$60</b>',
+    finalStep: 2
+  });
+
+  SCENES.q23_1e = makeBasicScene({
+    title: 'Unique Subset Sums of {0, 1, 2, 4, 8, 16}',
+    svgContent: `
+      <g transform="translate(70, 110)">
+        <rect width="500" height="45" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+        <text x="250" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">Non-zero elements: 1, 2, 4, 8, 16 (Powers of 2)</text>
+      </g>
+      <g class="step-item step-1" transform="translate(70, 175)">
+        <text x="250" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#2563eb">
+          Subsets sum uniquely to every integer from 1 to 31 (2⁵ − 1 = 31)
+        </text>
+      </g>
+      <g class="step-item step-2" transform="translate(70, 225)">
+        <text x="250" y="25" text-anchor="middle" font-size="16" font-weight="800" fill="#059669">
+          Adding 0 allows every single number to be a sum of 2+ numbers: 31 unique sums
+        </text>
+      </g>
+    `,
+    ansLabel: 'Different Sums',
+    numericAnswer: 31,
+    stamp: 'Unique Sums <b>31</b>',
+    finalStep: 2
+  });
+
+  // 2022-23 Scenes
+  SCENES.q22_1a = makeBasicScene({
+    title: 'Symmetric Place Values: 222 + 2022 + 2202 + 2220',
+    svgContent: `
+      <g transform="translate(100, 105)">
+        <text x="0" y="22" font-weight="700" fill="#334155">Thousands: 2022, 2202, 2220 → 3 × 2 = 6</text>
+        <text x="0" y="52" font-weight="700" fill="#334155">Hundreds: 222, 2202, 2220 → 3 × 2 = 6</text>
+        <text x="0" y="82" font-weight="700" fill="#334155">Tens: 222, 2022, 2220 → 3 × 2 = 6</text>
+        <text x="0" y="112" font-weight="700" fill="#334155">Ones: 222, 2022, 2202 → 3 × 2 = 6</text>
+      </g>
+      <g class="step-item step-1" transform="translate(100, 245)">
+        <text x="220" y="20" text-anchor="middle" font-size="18" font-weight="800" fill="#2563eb">
+          Each place has 6 (no carries!) → 6,666
+        </text>
+      </g>
+    `,
+    ansLabel: 'Sum',
+    numericAnswer: 6666,
+    stamp: 'Sum <b>6,666</b>',
+    finalStep: 1
+  });
+
+  SCENES.q22_1b = makeBasicScene({
+    title: 'Greedy Packaging for 95 Donuts (20, 10, 5)',
+    svgContent: `
+      <g transform="translate(100, 110)">
+        <rect x="0" y="0" width="160" height="45" rx="8" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"/>
+        <text x="80" y="28" text-anchor="middle" font-weight="800" fill="#0369a1">4 × 20 = 80</text>
+        <rect x="180" y="0" width="110" height="45" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="235" y="28" text-anchor="middle" font-weight="800" fill="#b45309">1 × 10 = 10</text>
+        <rect x="310" y="0" width="110" height="45" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+        <text x="365" y="28" text-anchor="middle" font-weight="800" fill="#15803d">1 × 5 = 5</text>
+      </g>
+      <g class="step-item step-1" transform="translate(100, 185)">
+        <text x="210" y="25" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">
+          80 + 10 + 5 = 95 mini-donuts
+        </text>
+      </g>
+      <g class="step-item step-2" transform="translate(100, 235)">
+        <text x="210" y="25" text-anchor="middle" font-size="18" font-weight="800" fill="#2563eb">
+          Total Boxes = 4 + 1 + 1 = 6 boxes
+        </text>
+      </g>
+    `,
+    ansLabel: 'Minimum Boxes',
+    numericAnswer: 6,
+    stamp: 'Least <b>6</b> boxes',
+    finalStep: 2
+  });
+
+  SCENES.q22_1c = makeBasicScene({
+    title: 'GCF(96, 120) = 24 vs Coprime to 105 (3 × 5 × 7)',
+    svgContent: `
+      <g transform="translate(80, 105)">
+        <text x="0" y="24" font-weight="700" fill="#334155">Factors of 24: {1, 2, 3, 4, 6, 8, 12, 24}</text>
+        <text class="step-item step-1" x="0" y="60" font-weight="700" fill="#dc2626">105 = 3 × 5 × 7 → Eliminate multiples of 3!</text>
+        <text class="step-item step-1" x="0" y="90" font-weight="700" fill="#64748b">Crossed out: 3, 6, 12, 24</text>
+        <text class="step-item step-2" x="0" y="130" font-size="16" font-weight="800" fill="#059669">Remaining: {1, 2, 4, 8} → Greatest is 8</text>
+      </g>
+    `,
+    ansLabel: 'Greatest Factor',
+    numericAnswer: 8,
+    stamp: 'Greatest factor <b>8</b>',
+    finalStep: 2
+  });
+
+  SCENES.q22_1d = makeBasicScene({
+    title: 'Stair-Step Perimeter Projection (Base 2 cm each)',
+    svgContent: `
+      <g transform="translate(120, 100)">
+        <rect x="0" y="112" width="40" height="16" fill="#e2e8f0" stroke="#64748b"/>
+        <rect x="40" y="96" width="40" height="32" fill="#e2e8f0" stroke="#64748b"/>
+        <rect x="80" y="64" width="40" height="64" fill="#e2e8f0" stroke="#64748b"/>
+        <rect x="120" y="32" width="40" height="96" fill="#e2e8f0" stroke="#64748b"/>
+        <rect x="160" y="0" width="40" height="128" fill="#e2e8f0" stroke="#64748b"/>
+      </g>
+      <g transform="translate(360, 115)">
+        <text x="0" y="24" font-weight="700" fill="#1e293b">Horizontal = 2 × 10 = 20 cm</text>
+        <text x="0" y="60" font-weight="700" fill="#1e293b">Vertical = 2 × 8 = 16 cm</text>
+        <text class="step-item step-1" x="0" y="110" font-size="16" font-weight="800" fill="#2563eb">Perimeter = 20 + 16 = 36 cm</text>
+      </g>
+    `,
+    ansLabel: 'Perimeter',
+    numericAnswer: 36,
+    stamp: 'Perimeter <b>36</b> cm',
+    finalStep: 1
+  });
+
+  SCENES.q22_1e = makeBasicScene({
+    title: '4-Digit abcd: a=d, b < a, c = (b + a)/2',
+    svgContent: `
+      <g transform="translate(80, 105)">
+        <text x="0" y="24" font-weight="700" fill="#334155">Parity Rule: a and b must have the same parity</text>
+        <text class="step-item step-1" x="0" y="60" font-weight="700" fill="#2563eb">Even a ∈ {2, 4, 6, 8}: 1 + 2 + 3 + 4 = 10 numbers</text>
+        <text class="step-item step-1" x="0" y="90" font-weight="700" fill="#2563eb">Odd a ∈ {3, 5, 7, 9}: 1 + 2 + 3 + 4 = 10 numbers</text>
+        <text class="step-item step-2" x="0" y="130" font-size="16" font-weight="800" fill="#059669">Total Valid Numbers = 10 + 10 = 20</text>
+      </g>
+    `,
+    ansLabel: 'Total Numbers',
+    numericAnswer: 20,
+    stamp: 'Total <b>20</b> numbers',
+    finalStep: 2
+  });
+
+  // Mock Scenes Generic Handlers
+  const mockConfigs = [
+    { id: 'mock1_1a', title: '8 × 15 × 125 × 6', ans: 90000, txt: '(8 × 125) × (15 × 6) = 1,000 × 90 = 90,000' },
+    { id: 'mock1_1b', title: 'Liam: 4x + 110 = 2026', ans: 479, txt: '(2026 − 110) ÷ 4 = 1916 ÷ 4 = 479' },
+    { id: 'mock1_1c', title: 'Museum Tickets ($12 & $20, 15 tickets = $228)', ans: 9, txt: 'Excess $72 ÷ $8 = 9 student tickets' },
+    { id: 'mock1_1d', title: 'Step 18 from 15 to 987', ans: 50, txt: '(987 − 105) ÷ 18 + 1 = 50 terms' },
+    { id: 'mock1_1e', title: '6 Rectangles Area 96', ans: 40, txt: 'Large rect 12 × 8 cm → Perimeter 40 cm' },
+
+    { id: 'mock2_1a', title: '37 × 48 + 37 × 52', ans: 3700, txt: '37 × (48 + 52) = 37 × 100 = 3,700' },
+    { id: 'mock2_1b', title: 'Coin Swap: $0.60 less', ans: 12, txt: '60¢ ÷ 15¢ = 4 more quarters → 12 quarters' },
+    { id: 'mock2_1c', title: 'Runners 60s, 75s, 90s', ans: 15, txt: 'LCM = 900 seconds = 15 minutes' },
+    { id: 'mock2_1d', title: '8×8 Checkerboard Isolation', ans: 16, txt: '4 rows × 4 cols = 16 squares' },
+    { id: 'mock2_1e', title: 'Box Net 4×6×5', ans: 76, txt: 'Outer perimeter = 40 + 16 + 20 = 76 in' },
+
+    { id: 'mock3_1a', title: 'First 20 Odd Numbers Sum', ans: 400, txt: 'Sum = n² = 20² = 400' },
+    { id: 'mock3_1b', title: 'Ages: Brian B, Total 54', ans: 6, txt: '7B + 12 = 54 → B = 6 years old' },
+    { id: 'mock3_1c', title: 'Making 50¢ with 25¢, 10¢, 5¢', ans: 10, txt: '1 + 3 + 6 = 10 ways' },
+    { id: 'mock3_1d', title: 'Corner Cuts Perimeter Invariance', ans: 32, txt: 'Perimeter equals 8×8 square = 32 cm' },
+    { id: 'mock3_1e', title: '100 Days from Tuesday', ans: null, str: 'Thursday', txt: '100 = 14 × 7 + 2 → Tuesday + 2 = Thursday' }
+  ];
+
+  mockConfigs.forEach(m => {
+    SCENES['q_' + m.id] = makeBasicScene({
+      title: m.title,
+      svgContent: `
+        <g transform="translate(100, 130)">
+          <text x="220" y="40" text-anchor="middle" font-size="18" font-weight="800" fill="#2563eb">${m.txt}</text>
+        </g>
+      `,
+      ansLabel: 'Answer',
+      numericAnswer: m.ans,
+      answerStr: m.str,
+      stamp: m.ans != null ? `Answer <b>${m.ans.toLocaleString()}</b>` : `Answer <b>${m.str}</b>`,
+      finalStep: 1
+    });
+  });
+
   window.SCENES = SCENES;
 })();

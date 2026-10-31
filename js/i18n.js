@@ -9,22 +9,23 @@
       'side.note': '先自己想 3 分钟，再看动画。用键盘 <kbd>←</kbd> <kbd>→</kbd> 也能切换讲解步骤。',
       'side.foot': '循序渐进 · 每天一套',
       'side.menu': '打开目录',
+      'side.resources': '竞赛指南与官方资源',
 
       'nav.current': '在读',
-      'nav.coming': '即将上线',
+      'nav.coming': '敬请期待',
       'nav.meta': '5 道题 · 已掌握 {n}',
       'nav.metaSoon': '5 道题 · 敬请期待',
 
       'top.mastered': '已掌握 {n} / {total}',
-      'top.soon': '即将上线',
-      'top.grade': '五年级 · 中文讲解',
+      'top.soon': '敬请期待',
+      'top.grade': '五年级 · 中英双语',
       'top.lang': '语言',
 
       'hero.mastered': '已掌握',
       'hero.problems': '{n} 道题',
       'hero.minutes': '{n} 分钟',
       'hero.animations': '{n} 组动画',
-      'hero.suffix': '练习',
+      'hero.suffix': '',
       'qrail.aria': '题目切换',
 
       'q.showAnswer': '看答案',
@@ -146,8 +147,9 @@
       'brand.sub': 'MOEMS Prep · Grade 5',
       'side.label': 'Workbooks · by month',
       'side.note': 'Try it yourself for 3 minutes before watching. Use <kbd>←</kbd> <kbd>→</kbd> to move through the steps.',
-      'side.foot': 'One set a day, step by step',
+      'side.foot': 'One contest a day, step by step',
       'side.menu': 'Open menu',
+      'side.resources': 'MOEMS Guide & Resources',
 
       'nav.current': 'Current',
       'nav.coming': 'Coming soon',

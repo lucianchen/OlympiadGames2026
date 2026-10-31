@@ -73,6 +73,9 @@
   function readRoute() {
     const raw = (location.hash || '').replace(/^#\/?/, '');
     const parts = raw.split('/').filter(Boolean);
+    if (parts[0] === 'resources') {
+      return { isResources: true, month: 'nov', contest: '2025-26', qid: '1a' };
+    }
     let month = parts[0];
     let contest = parts[1];
     let qid = parts[2];
@@ -153,11 +156,25 @@
   /* ---------------------------------------------------------------- */
   function renderNav() {
     const nav = $('#contestNav');
-    nav.innerHTML = MONTHS.map((m) => {
+    const isResActive = state.isResources;
+    const resLink = `
+      <div class="nav-month">
+        <span class="nm-label">${isEn() ? 'Resources' : '竞赛资源'}</span>
+        <span class="nm-en">GUIDE</span>
+      </div>
+      <a class="nav-item ${isResActive ? 'is-active' : ''}" href="#/resources">
+        <span class="nav-line">
+          <span class="nav-title">${isEn() ? 'MOEMS Guide & Tips' : 'MOEMS 备考指南与题型'}</span>
+          ${isResActive ? `<span class="nav-now">${T('nav.current')}</span>` : ''}
+        </span>
+        <span class="nav-meta">${isEn() ? 'Official links, book list & strategies' : '官方网址、备赛书单与高频题型'}</span>
+      </a>`;
+
+    const monthsHtml = MONTHS.map((m) => {
       const items = m.contests.map((cid) => {
         const c = getContest(m.id, cid);
         if (!c) return '';
-        const active = cid === state.contest && m.id === state.month;
+        const active = !isResActive && cid === state.contest && m.id === state.month;
         const label = cv(c, 'label');
         if (c.status === 'soon') {
           return `
@@ -176,6 +193,8 @@
       }).join('');
       return `<div class="nav-month"><span class="nm-label">${monthLabel(m)}</span><span class="nm-en">${m.en}</span></div>${items}`;
     }).join('');
+
+    nav.innerHTML = monthsHtml + resLink;
   }
 
   function renderTopbar(c, q) {
@@ -573,16 +592,130 @@
     renderTopbar(c, null);
   }
 
+  function renderResourcesPage() {
+    const en = isEn();
+    document.title = en ? 'MOEMS Resources & Guide — Math Olympiad Studio' : 'MOEMS 备考指南与官方资源 — 奥数小工坊';
+    const app = $('#app');
+    app.innerHTML = `
+      <section class="hero hero-resources">
+        <div class="hero-copy">
+          <div class="hero-eyebrow">
+            <span class="month-sticker">MOEMS</span>
+            <span>DIVISION E · GRADES 4–6</span>
+            <span class="hero-src">${en ? 'Official Contest Info & Guide' : '官方竞赛说明与辅导资源'}</span>
+          </div>
+          <h1>${en ? 'MOEMS Resources & Study Guide' : 'MOEMS 备考指南与核心资源'}</h1>
+          <p>${en 
+            ? 'Complete guide for the Mathematical Olympiads for Elementary and Middle Schools (Division E). Everything you need to prepare for Contest 1 through Contest 5.'
+            : '专为小学 4~6 年级（Division E 组）MOEMS 校队选手准备的备考总览。包含官方网站、出题大纲、必读书单与真题刷题策略。'}</p>
+        </div>
+      </section>
+
+      <section class="panel resources-panel">
+        <div class="res-grid">
+          <div class="res-card">
+            <div class="res-tag">${en ? 'Official Portal' : '官方网站'}</div>
+            <h3>${en ? 'MOEMS Official Website' : 'MOEMS 官方门户'}</h3>
+            <p>${en 
+              ? 'Founded in 1977, MOEMS is one of the most prestigious math competitions in the US, with over 150,000 students participating annually.'
+              : '创立于 1977 年的美国全美最具影响力的小学与初中数学奥林匹克竞赛，每年有超 15 万名选手参加。'}</p>
+            <div class="res-actions">
+              <a class="btn primary" href="https://www.moems.org" target="_blank" rel="noopener">Visit MOEMS.org ↗</a>
+              <a class="btn ghost" href="https://store.moems.org" target="_blank" rel="noopener">Official Store ↗</a>
+            </div>
+          </div>
+
+          <div class="res-card">
+            <div class="res-tag">${en ? 'Must-Have Books' : '经典备考书单'}</div>
+            <h3>${en ? 'Official Problem Books' : '历年官方真题卷全集'}</h3>
+            <p>${en 
+              ? 'Books authored by MOEMS committee with full solutions and extensions:'
+              : 'MOEMS 命题组编著的历年真题分类集（带官方详解和拓展题）：'}</p>
+            <ul class="book-list">
+              <li><strong>Math Olympiad Contest Problems Vol 1–4</strong> (Richard Kalman & George Lenchner)</li>
+              <li><strong>Creative Problem Solving in School Mathematics</strong> (George Lenchner)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="res-section">
+          <h3>${en ? 'Contest Format & Rules (Division E)' : '竞赛规则与考试要点 (Division E)'}</h3>
+          <div class="rules-table">
+            <div class="rule-col">
+              <h4>${en ? 'Timing & Format' : '时长与题量'}</h4>
+              <p>${en ? '5 events per year (Nov–Mar). Each test has 5 questions in 30 minutes.' : '每年 5 场考试（11月至次年3月）。每次 5 道题，考试时间严格为 30 分钟。'}</p>
+            </div>
+            <div class="rule-col">
+              <h4>${en ? 'Calculators' : '计算器规定'}</h4>
+              <p>${en ? 'Calculators are NOT permitted. Pencils and scratch paper only.' : '严禁使用计算器！只能使用铅笔和草稿纸，重点考查心算速算与逻辑。'}</p>
+            </div>
+            <div class="rule-col">
+              <h4>${en ? 'Scoring' : '评分标准'}</h4>
+              <p>${en ? '1 point per question (total 25 pts for the year). Exact final answer only.' : '每题 1 分（全年满分 25 分）。只填最终答案，不写过程，单位与格式务必看清。'}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="res-section">
+          <h3>${en ? 'November Contest 1 · Five Master Patterns' : '11 月第 1 场 (Contest 1) 必须掌握的 5 大母题模型'}</h3>
+          <div class="pattern-cards">
+            <div class="pat-item">
+              <span class="pat-no">1</span>
+              <h4>${en ? 'Friendly Numbers & Place Value' : '找数字好朋友与数位位值'}</h4>
+              <p>${en ? '2×5=10, 4×25=100, 8×125=1000. Reorder factors or sum repeating-digit columns without carries.' : '2×5=10，4×25=100，8×125=1000。换序凑整或按数位拆解重复数字。'}</p>
+            </div>
+            <div class="pat-item">
+              <span class="pat-no">2</span>
+              <h4>${en ? 'Work Backwards (Inverse Operations)' : '倒推法（逆运算）'}</h4>
+              <p>${en ? 'Start from the final target year (e.g. 2026), undo addition with subtraction and multiplication with division.' : '从最终年份或结果倒着算，加变减、乘变除，一步一步退回原点。'}</p>
+            </div>
+            <div class="pat-item">
+              <span class="pat-no">3</span>
+              <h4>${en ? 'Supposition (Chicken & Rabbit)' : '假设法（鸡兔同笼 / 硬币互换）'}</h4>
+              <p>${en ? 'Assume all tickets/coins are of one type, find the excess/shortfall, divide by the unit price difference.' : '假设全是 A，算出总额差，除以单价差算出 B 的数量。'}</p>
+            </div>
+            <div class="pat-item">
+              <span class="pat-no">4</span>
+              <h4>${en ? 'Arithmetic Progressions' : '等差数列与植树原理'}</h4>
+              <p>${en ? 'Terms = (Last − First) ÷ Step + 1. Always remember to add 1 for the starting fencepost.' : '项数 = (末项 − 首项) ÷ 公差 + 1。牢记植树原理末尾必须加 1。'}</p>
+            </div>
+            <div class="pat-item">
+              <span class="pat-no">5</span>
+              <h4>${en ? 'Perimeter Projection & Dissection' : '几何图形拼接与周长投影'}</h4>
+              <p>${en ? 'Stair-step and composite rectangular boundaries project to their bounding box: Perimeter = 2 × (Width + Max Height).' : '并排阶梯长方形与平放展开图，外圈周长可平移投影到外接矩形 2×(宽+高)。'}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="res-cta">
+          <p>${en ? 'Ready to test your skills? Jump into our interactive walkthroughs!' : '准备好开始做题了吗？现在就去体验交互式动画真题讲解吧！'}</p>
+          <a class="btn primary" href="#/nov/2025-26/1a">${en ? 'Start Practice (2025–26 Contest 1)' : '进入 2025–26 第 1 场真题'}</a>
+        </div>
+      </section>`;
+
+    $('#crumb').innerHTML = `<span>${en ? 'Resources' : '竞赛资源'}</span> <span class="sep">/</span> <span class="now">${en ? 'MOEMS Guide' : '官方指南与题型总结'}</span>`;
+    $('#progressPill').innerHTML = `<span class="pp-dot"></span>${en ? 'Official Guide' : '官方指南'}`;
+  }
+
   function renderPage() {
     applyStaticI18n();
 
     const route = readRoute();
+    if (route.isResources) {
+      state.isResources = true;
+      stopPlay();
+      renderNav();
+      renderResourcesPage();
+      return;
+    }
+    state.isResources = false;
+
     state.month = route.month;
     state.contest = route.contest;
 
     const c = getContest(route.month, route.contest);
     if (!c) {
-      navigate('nov', '2024-25', '1a');
+      navigate('nov', '2025-26', '1a');
       return;
     }
 
