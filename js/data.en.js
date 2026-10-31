@@ -54,6 +54,21 @@ window.EN_CONTENT = {
       "label": "Contest 5",
       "full": "March 2026 · Contest 5",
       "blurb": "The grand finale championship contest! Comprehensive challenge for awards, pins, and perfect scores."
+    },
+    "classic-vol1": {
+      "label": "Master Set 1",
+      "full": "MOEMS Vol 1–2 · Classic Master Problems 1",
+      "blurb": "Essential classics from Kalman & Lenchner: Gauss sum, snail in a well, book page digits, clock hand angle, and fencepost cuts."
+    },
+    "classic-vol2": {
+      "label": "Master Set 2",
+      "full": "MOEMS Vol 3–4 · Classic Master Problems 2",
+      "blurb": "Geometry & algebra master models: difference of squares, cube surface painting, travel meeting time, 3x3 magic square, and tournament games."
+    },
+    "classic-vol3": {
+      "label": "Master Set 3",
+      "full": "Creative Problem Solving · Master Set 3",
+      "blurb": "Advanced reasoning from George Lenchner: worst-case pigeonhole, Venn diagram overlap, cryptarithm AB+BA, trapezoid butterfly wings, and power of 2 cycles."
     }
   },
   "questions": {
@@ -1086,6 +1101,282 @@ window.EN_CONTENT = {
           "q": "50 days from Tuesday?",
           "hint": "50 = 7×7 + 1 → Wednesday",
           "a": "Wednesday"
+        }
+      }
+    },
+    "classic-vol1": {
+      "1a": {
+        "title": "Gauss Pairing Sum 1 to 50",
+        "answerNote": "50 × 51 ÷ 2 = 1,275",
+        "answer": "1,275",
+        "steps": [
+          {
+            "t": "Gauss Pairing",
+            "d": "Pairs of 51: (1+50), (2+49)... 25 pairs. 25 × 51 = <b>1,275</b>."
+          }
+        ],
+        "tip": "n(n+1)/2",
+        "methods": [],
+        "follow": {
+          "q": "1 to 100?",
+          "hint": "5050",
+          "a": "5,050"
+        }
+      },
+      "1b": {
+        "title": "Snail in a 20-Foot Well",
+        "answerNote": "Reaches top on Day 6 without sliding back down",
+        "answer": "6",
+        "steps": [
+          {
+            "t": "Day 6 Breakthrough",
+            "d": "Day 5 ends at 15 ft. Day 6 climbs 5 ft to reach 20 ft: <b>Day 6</b>."
+          }
+        ],
+        "tip": "Subtract final climb first.",
+        "methods": [],
+        "follow": {
+          "q": "30 ft well (up 4, down 1)?",
+          "hint": "10 days",
+          "a": "10"
+        }
+      },
+      "1c": {
+        "title": "Digits in Pages 1 to 120",
+        "answerNote": "9 + 180 + 63 = 252 digits",
+        "answer": "252",
+        "steps": [
+          {
+            "t": "By digits count",
+            "d": "1–9: 9; 10–99: 180; 100–120: 21×3=63. Total = <b>252</b>."
+          }
+        ],
+        "tip": "Count by digits range.",
+        "methods": [],
+        "follow": {
+          "q": "Pages 1 to 100?",
+          "hint": "192",
+          "a": "192"
+        }
+      },
+      "1d": {
+        "title": "Clock Hands Angle at 3:30",
+        "answerNote": "Minute at 6, hour at 3.5: 2.5 × 30° = 75°",
+        "answer": "75",
+        "steps": [
+          {
+            "t": "Hour hand moves",
+            "d": "At 3:30 hour hand is at 3.5. Separation = 2.5 ticks = <b>75°</b>."
+          }
+        ],
+        "tip": "Each hour tick is 30°.",
+        "methods": [],
+        "follow": {
+          "q": "Angle at 4:00?",
+          "hint": "4 × 30° = 120°",
+          "a": "120°"
+        }
+      },
+      "1e": {
+        "title": "Sawing Wood Fencepost",
+        "answerNote": "8 pieces requires 7 cuts: 7 × 3 = 21 minutes",
+        "answer": "21",
+        "steps": [
+          {
+            "t": "Cuts = Pieces − 1",
+            "d": "8 pieces need 7 cuts. 7 × 3 = <b>21 minutes</b>."
+          }
+        ],
+        "tip": "Cuts is one less than pieces.",
+        "methods": [],
+        "follow": {
+          "q": "5 pieces in 12 min, 10 pieces?",
+          "hint": "9 cuts × 3 = 27",
+          "a": "27 min"
+        }
+      }
+    },
+    "classic-vol2": {
+      "1a": {
+        "title": "Difference of Squares 51² − 49²",
+        "answerNote": "(51 − 49)(51 + 49) = 2 × 100 = 200",
+        "answer": "200",
+        "steps": [
+          {
+            "t": "a² − b²",
+            "d": "(51−49)(51+49) = 2 × 100 = <b>200</b>."
+          }
+        ],
+        "tip": "a² − b² = (a−b)(a+b)",
+        "methods": [],
+        "follow": {
+          "q": "65² − 35²?",
+          "hint": "30 × 100 = 3000",
+          "a": "3,000"
+        }
+      },
+      "1b": {
+        "title": "Painted 3x3x3 Cube (2 Faces Painted)",
+        "answerNote": "Middle of 12 edges: 12 × 1 = 12 cubes",
+        "answer": "12",
+        "steps": [
+          {
+            "t": "Edge pieces",
+            "d": "2-face painted cubes sit on the 12 edges: 12 × 1 = <b>12</b>."
+          }
+        ],
+        "tip": "Edges have 2 faces painted.",
+        "methods": [],
+        "follow": {
+          "q": "1 face painted?",
+          "hint": "6 centers",
+          "a": "6"
+        }
+      },
+      "1c": {
+        "title": "Two Drivers Meeting Time",
+        "answerNote": "90 miles ÷ (40 + 50) mph = 1 hour",
+        "answer": "1",
+        "steps": [
+          {
+            "t": "Speed sum",
+            "d": "Combined speed = 90 mph. Time = 90 ÷ 90 = <b>1 hour</b>."
+          }
+        ],
+        "tip": "Meeting time = distance ÷ speed sum.",
+        "methods": [],
+        "follow": {
+          "q": "270 miles apart?",
+          "hint": "3 hours",
+          "a": "3 hours"
+        }
+      },
+      "1d": {
+        "title": "3x3 Magic Square Sum",
+        "answerNote": "Sum = 9 × center = 9 × 5 = 45",
+        "answer": "45",
+        "steps": [
+          {
+            "t": "Center theorem",
+            "d": "Magic sum = 3×5=15. Total = 3×15 = <b>45</b>."
+          }
+        ],
+        "tip": "Total = 9 × center number.",
+        "methods": [],
+        "follow": {
+          "q": "Center is 8?",
+          "hint": "9 × 8 = 72",
+          "a": "72"
+        }
+      },
+      "1e": {
+        "title": "Handshake Tournament 8 Players",
+        "answerNote": "8 × 7 ÷ 2 = 28 games",
+        "answer": "28",
+        "steps": [
+          {
+            "t": "Combinations",
+            "d": "8 × 7 ÷ 2 = <b>28 games</b>."
+          }
+        ],
+        "tip": "n(n−1)/2",
+        "methods": [],
+        "follow": {
+          "q": "Gift exchange (10 people)?",
+          "hint": "10 × 9 = 90",
+          "a": "90"
+        }
+      }
+    },
+    "classic-vol3": {
+      "1a": {
+        "title": "Pigeonhole Socks in the Dark",
+        "answerNote": "2 colors + 1 = 3 socks guaranteed",
+        "answer": "3",
+        "steps": [
+          {
+            "t": "Worst case",
+            "d": "First 2 socks different. 3rd sock must match: <b>3 socks</b>."
+          }
+        ],
+        "tip": "Guarantee = categories + 1.",
+        "methods": [],
+        "follow": {
+          "q": "3 colors?",
+          "hint": "3 + 1 = 4",
+          "a": "4"
+        }
+      },
+      "1b": {
+        "title": "Venn Diagram Overlap",
+        "answerNote": "18 + 15 − 25 = 8 students play both",
+        "answer": "8",
+        "steps": [
+          {
+            "t": "Inclusion-Exclusion",
+            "d": "30 − 5 = 25 sports players. 18 + 15 − 25 = <b>8</b>."
+          }
+        ],
+        "tip": "A ∪ B = A + B − A ∩ B.",
+        "methods": [],
+        "follow": {
+          "q": "28 students, 16 tea, 14 coffee, 3 neither?",
+          "hint": "5",
+          "a": "5"
+        }
+      },
+      "1c": {
+        "title": "Reversed Digits Sum AB + BA = 154",
+        "answerNote": "11(A + B) = 154 → A + B = 14",
+        "answer": "14",
+        "steps": [
+          {
+            "t": "11 Multiplier",
+            "d": "10A+B + 10B+A = 11(A+B) = 154 → A+B = <b>14</b>."
+          }
+        ],
+        "tip": "AB + BA is always divisible by 11.",
+        "methods": [],
+        "follow": {
+          "q": "AB + BA = 132?",
+          "hint": "12",
+          "a": "12"
+        }
+      },
+      "1d": {
+        "title": "Trapezoid Butterfly Wings Equal Area",
+        "answerNote": "Left and right wings are equal: 12 cm²",
+        "answer": "12",
+        "steps": [
+          {
+            "t": "Same base & height",
+            "d": "S(ACD) = S(BCD). Subtract COD from both → S(AOD) = S(BOC) = <b>12</b>."
+          }
+        ],
+        "tip": "Butterfly wings in a trapezoid have equal areas.",
+        "methods": [],
+        "follow": {
+          "q": "Wing 25 cm²?",
+          "hint": "25 cm²",
+          "a": "25 cm²"
+        }
+      },
+      "1e": {
+        "title": "Units Digit of 2²⁰²⁶",
+        "answerNote": "Cycle [2, 4, 8, 6]; 2026 ÷ 4 remainder 2 → 4",
+        "answer": "4",
+        "steps": [
+          {
+            "t": "Cycle of 4",
+            "d": "Units digits: 2, 4, 8, 6. 2026 ÷ 4 leaves remainder 2 → <b>4</b>."
+          }
+        ],
+        "tip": "Divide exponent by cycle length.",
+        "methods": [],
+        "follow": {
+          "q": "Units digit of 3²⁰²⁵?",
+          "hint": "3",
+          "a": "3"
         }
       }
     }

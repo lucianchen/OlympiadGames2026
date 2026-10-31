@@ -1291,5 +1291,244 @@
     });
   });
 
+  
+  // ------------------------------------------------------------------
+  // Classics Scenes (Vol 1 - 4 & Creative Problem Solving)
+  // ------------------------------------------------------------------
+  SCENES.q_cls_1a = makeBasicScene({
+    title: 'Gauss Pairing: 1 + 2 + 3 + ... + 50',
+    svgContent: `
+      <g transform="translate(80, 110)">
+        <rect width="480" height="42" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+        <text x="240" y="26" text-anchor="middle" font-size="16" font-weight="700" fill="#1e293b">1 + 2 + 3 + ... + 48 + 49 + 50</text>
+      </g>
+      <g class="step-item step-0" transform="translate(80, 175)">
+        <text x="240" y="24" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">Pairs: (1+50)=51, (2+49)=51, (3+48)=51 ...</text>
+      </g>
+      <g class="step-item step-1" transform="translate(80, 235)">
+        <text x="240" y="25" text-anchor="middle" font-size="17" font-weight="800" fill="#059669">25 Pairs × 51 = 1,275</text>
+      </g>
+    `,
+    ansLabel: 'Sum',
+    numericAnswer: 1275,
+    stamp: 'Sum <b>1,275</b>',
+    finalStep: 1
+  });
+
+  SCENES.q_cls_1b = makeBasicScene({
+    title: 'Snail in a 20-Foot Well (Up 5, Down 2)',
+    svgContent: `
+      <g transform="translate(100, 105)">
+        <text x="0" y="22" font-size="14" font-weight="700" fill="#dc2626">Trap: 20 ÷ (5 − 2) = 6.67 days is WRONG!</text>
+        <text class="step-item step-0" x="0" y="58" font-size="14" font-weight="700" fill="#2563eb">Last Day: Climes 5 ft directly to the top (no slide down!)</text>
+        <text class="step-item step-1" x="0" y="94" font-size="14" font-weight="700" fill="#334155">Days 1–5: Climbs 15 ft (3 ft/day net)</text>
+        <text class="step-item step-2" x="0" y="130" font-size="16" font-weight="800" fill="#059669">Day 6: Reaches 15 + 5 = 20 ft (Top!)</text>
+      </g>
+    `,
+    ansLabel: 'Reached on Day',
+    numericAnswer: 6,
+    stamp: 'Day <b>6</b>',
+    finalStep: 2
+  });
+
+  SCENES.q_cls_1c = makeBasicScene({
+    title: 'Printed Digits for Pages 1 to 120',
+    svgContent: `
+      <g transform="translate(80, 105)">
+        <text x="0" y="24" font-weight="700" fill="#334155">Pages 1–9: 9 pages × 1 digit = 9</text>
+        <text class="step-item step-0" x="0" y="58" font-weight="700" fill="#334155">Pages 10–99: 90 pages × 2 digits = 180</text>
+        <text class="step-item step-1" x="0" y="92" font-weight="700" fill="#334155">Pages 100–120: 21 pages × 3 digits = 63</text>
+        <text class="step-item step-2" x="0" y="132" font-size="16" font-weight="800" fill="#2563eb">Total Digits: 9 + 180 + 63 = 252</text>
+      </g>
+    `,
+    ansLabel: 'Total Digits',
+    numericAnswer: 252,
+    stamp: 'Total <b>252</b> digits',
+    finalStep: 2
+  });
+
+  SCENES.q_cls_1d = makeBasicScene({
+    title: 'Clock Hands Angle at 3:30',
+    svgContent: `
+      <g transform="translate(90, 105)">
+        <text x="0" y="24" font-weight="700" fill="#334155">Minute hand points exactly at 6</text>
+        <text class="step-item step-0" x="0" y="58" font-weight="700" fill="#2563eb">Hour hand moves 30 min × 0.5° = 15° → at 3.5</text>
+        <text class="step-item step-1" x="0" y="92" font-weight="700" fill="#334155">Separation: 6 − 3.5 = 2.5 hour ticks</text>
+        <text class="step-item step-2" x="0" y="132" font-size="16" font-weight="800" fill="#059669">Angle: 2.5 × 30° = 75°</text>
+      </g>
+    `,
+    ansLabel: 'Angle in Degrees',
+    numericAnswer: 75,
+    stamp: 'Angle <b>75°</b>',
+    finalStep: 2
+  });
+
+  SCENES.q_cls_1e = makeBasicScene({
+    title: 'Sawing 12-Foot Board into 1.5-Foot Pieces',
+    svgContent: `
+      <g transform="translate(80, 105)">
+        <text x="0" y="24" font-weight="700" fill="#334155">Pieces = 12 ÷ 1.5 = 8 pieces</text>
+        <text class="step-item step-0" x="0" y="60" font-weight="700" fill="#dc2626">Cuts = Pieces − 1 = 8 − 1 = 7 cuts</text>
+        <text class="step-item step-1" x="0" y="98" font-size="16" font-weight="800" fill="#2563eb">Total Time: 7 cuts × 3 min = 21 minutes</text>
+      </g>
+    `,
+    ansLabel: 'Total Minutes',
+    numericAnswer: 21,
+    stamp: 'Total <b>21</b> min',
+    finalStep: 1
+  });
+
+  SCENES.q_cls_2a = makeBasicScene({
+    title: 'Difference of Squares: 51² − 49²',
+    svgContent: `
+      <g transform="translate(80, 115)">
+        <text x="240" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">Formula: a² − b² = (a − b)(a + b)</text>
+        <text class="step-item step-0" x="240" y="65" text-anchor="middle" font-size="16" font-weight="800" fill="#2563eb">(51 − 49) × (51 + 49) = 2 × 100</text>
+        <text class="step-item step-1" x="240" y="110" text-anchor="middle" font-size="18" font-weight="800" fill="#059669">= 200</text>
+      </g>
+    `,
+    ansLabel: 'Value',
+    numericAnswer: 200,
+    stamp: 'Value <b>200</b>',
+    finalStep: 1
+  });
+
+  SCENES.q_cls_2b = makeBasicScene({
+    title: 'Painted 3×3×3 Cube: Two Faces Painted',
+    svgContent: `
+      <g transform="translate(80, 105)">
+        <text x="0" y="24" font-weight="700" fill="#334155">3 faces: 8 corners</text>
+        <text class="step-item step-0" x="0" y="58" font-weight="800" fill="#2563eb">2 faces: Middle of the 12 edges</text>
+        <text class="step-item step-1" x="0" y="92" font-weight="700" fill="#334155">Each edge has 3 − 2 = 1 middle cube</text>
+        <text class="step-item step-2" x="0" y="130" font-size="16" font-weight="800" fill="#059669">Total = 12 edges × 1 = 12 cubes</text>
+      </g>
+    `,
+    ansLabel: 'Cubes with 2 Painted Faces',
+    numericAnswer: 12,
+    stamp: 'Cubes <b>12</b>',
+    finalStep: 2
+  });
+
+  SCENES.q_cls_2c = makeBasicScene({
+    title: 'Travel: Tom (40 mph) & Jerry (50 mph), 90 Miles',
+    svgContent: `
+      <g transform="translate(80, 115)">
+        <text x="240" y="24" text-anchor="middle" font-weight="700" fill="#334155">Combined Speed = 40 + 50 = 90 mph</text>
+        <text class="step-item step-0" x="240" y="65" text-anchor="middle" font-size="16" font-weight="700" fill="#2563eb">Time = Total Distance ÷ Combined Speed</text>
+        <text class="step-item step-1" x="240" y="110" text-anchor="middle" font-size="18" font-weight="800" fill="#059669">90 miles ÷ 90 mph = 1 hour</text>
+      </g>
+    `,
+    ansLabel: 'Meeting Time',
+    numericAnswer: 1,
+    stamp: 'Time <b>1</b> hour',
+    finalStep: 1
+  });
+
+  SCENES.q_cls_2d = makeBasicScene({
+    title: '3×3 Magic Square with Center Number 5',
+    svgContent: `
+      <g transform="translate(80, 110)">
+        <text x="240" y="24" text-anchor="middle" font-weight="700" fill="#334155">Magic Line Sum = 3 × Center = 3 × 5 = 15</text>
+        <text class="step-item step-0" x="240" y="65" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">Total of 9 squares = 3 rows × 15 = 45</text>
+        <text class="step-item step-1" x="240" y="110" text-anchor="middle" font-size="18" font-weight="800" fill="#059669">Or simply: 9 × Center (5) = 45</text>
+      </g>
+    `,
+    ansLabel: 'Sum of 9 Numbers',
+    numericAnswer: 45,
+    stamp: 'Sum <b>45</b>',
+    finalStep: 1
+  });
+
+  SCENES.q_cls_2e = makeBasicScene({
+    title: 'Chess Tournament (8 Players Single Round-Robin)',
+    svgContent: `
+      <g transform="translate(80, 110)">
+        <text x="240" y="24" text-anchor="middle" font-weight="700" fill="#334155">Each player plays 7 opponents: 8 × 7 = 56 pair-games</text>
+        <text class="step-item step-0" x="240" y="65" text-anchor="middle" font-size="15" font-weight="700" fill="#dc2626">Each game involves 2 players (counted twice!)</text>
+        <text class="step-item step-1" x="240" y="110" text-anchor="middle" font-size="18" font-weight="800" fill="#059669">Total Games = 8 × 7 ÷ 2 = 28 games</text>
+      </g>
+    `,
+    ansLabel: 'Total Games',
+    numericAnswer: 28,
+    stamp: 'Games <b>28</b>',
+    finalStep: 1
+  });
+
+  SCENES.q_cls_3a = makeBasicScene({
+    title: 'Pigeonhole: 10 Black & 10 White Socks',
+    svgContent: `
+      <g transform="translate(80, 110)">
+        <text x="240" y="24" text-anchor="middle" font-weight="700" fill="#334155">Worst Case: Pull 1 Black and 1 White sock</text>
+        <text class="step-item step-0" x="240" y="65" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">3rd sock MUST match either Black or White!</text>
+        <text class="step-item step-1" x="240" y="110" text-anchor="middle" font-size="18" font-weight="800" fill="#059669">At least 3 socks to guarantee a pair</text>
+      </g>
+    `,
+    ansLabel: 'Minimum Socks',
+    numericAnswer: 3,
+    stamp: 'Least <b>3</b> socks',
+    finalStep: 1
+  });
+
+  SCENES.q_cls_3b = makeBasicScene({
+    title: 'Venn Diagram: 30 Students (18 Soccer, 15 Basketball, 5 Neither)',
+    svgContent: `
+      <g transform="translate(80, 105)">
+        <text x="0" y="24" font-weight="700" fill="#334155">Active students = 30 − 5 = 25 students</text>
+        <text class="step-item step-0" x="0" y="58" font-weight="700" fill="#334155">Combined signups = 18 + 15 = 33</text>
+        <text class="step-item step-1" x="0" y="92" font-size="15" font-weight="700" fill="#2563eb">Overlap (Both) = 33 − 25 = 8</text>
+        <text class="step-item step-2" x="0" y="130" font-size="16" font-weight="800" fill="#059669">8 students play both sports</text>
+      </g>
+    `,
+    ansLabel: 'Both Sports',
+    numericAnswer: 8,
+    stamp: 'Both <b>8</b> students',
+    finalStep: 2
+  });
+
+  SCENES.q_cls_3c = makeBasicScene({
+    title: 'Cryptarithm: AB + BA = 154',
+    svgContent: `
+      <g transform="translate(80, 110)">
+        <text x="240" y="24" text-anchor="middle" font-weight="700" fill="#334155">(10A + B) + (10B + A) = 11(A + B)</text>
+        <text class="step-item step-0" x="240" y="65" text-anchor="middle" font-size="16" font-weight="700" fill="#2563eb">11 × (A + B) = 154</text>
+        <text class="step-item step-1" x="240" y="110" text-anchor="middle" font-size="18" font-weight="800" fill="#059669">A + B = 154 ÷ 11 = 14</text>
+      </g>
+    `,
+    ansLabel: 'A + B',
+    numericAnswer: 14,
+    stamp: 'A + B = <b>14</b>',
+    finalStep: 1
+  });
+
+  SCENES.q_cls_3d = makeBasicScene({
+    title: 'Trapezoid Butterfly Wings: Area S(AOD) = S(BOC)',
+    svgContent: `
+      <g transform="translate(80, 105)">
+        <text x="0" y="24" font-weight="700" fill="#334155">S(ACD) = S(BCD) (same base CD, same height)</text>
+        <text class="step-item step-0" x="0" y="58" font-weight="700" fill="#2563eb">Subtract bottom COD: S(ACD) − COD = S(BCD) − COD</text>
+        <text class="step-item step-1" x="0" y="98" font-size="16" font-weight="800" fill="#059669">Left Wing = Right Wing → S(BOC) = 12 cm²</text>
+      </g>
+    `,
+    ansLabel: 'Area BOC',
+    numericAnswer: 12,
+    stamp: 'Area <b>12</b> cm²',
+    finalStep: 1
+  });
+
+  SCENES.q_cls_3e = makeBasicScene({
+    title: 'Units Digit of 2²⁰²⁶ (Cycle: 2, 4, 8, 6)',
+    svgContent: `
+      <g transform="translate(80, 105)">
+        <text x="0" y="24" font-weight="700" fill="#334155">2¹=2, 2²=4, 2³=8, 2⁴=6 → Period = 4</text>
+        <text class="step-item step-0" x="0" y="58" font-weight="700" fill="#2563eb">2026 ÷ 4 = 506 remainder 2</text>
+        <text class="step-item step-1" x="0" y="98" font-size="16" font-weight="800" fill="#059669">2nd number in the cycle is 4</text>
+      </g>
+    `,
+    ansLabel: 'Units Digit',
+    numericAnswer: 4,
+    stamp: 'Units Digit <b>4</b>',
+    finalStep: 1
+  });
+
   window.SCENES = SCENES;
 })();
