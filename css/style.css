@@ -1258,3 +1258,401 @@ html[lang="en"] .brand-name { font-size: 16px; }
 .sc-ans-val { font-size: 26px; font-weight: 800; fill: #2563eb; font-family: var(--font-round); }
 .step-item { opacity: 0.2; transition: opacity 0.35s ease, transform 0.35s ease; }
 .step-item.is-visible { opacity: 1; transform: none; }
+
+
+/* ------------------------------------------------------------------ *
+ * Print Button, Modal & Print-Friendly Worksheet Styles
+ * ------------------------------------------------------------------ */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+.btn-print-sheet {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #1e293b;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: all .2s ease;
+}
+.btn-print-sheet:hover {
+  background: #f8fafc;
+  border-color: #2563eb;
+  color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37,99,235,0.12);
+}
+.btn-print-sheet svg { color: #2563eb; }
+
+/* Print Modal (Screen Preview) */
+.print-modal-host {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.print-modal-host[hidden] { display: none !important; }
+.print-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+}
+.print-modal-dialog {
+  position: relative;
+  z-index: 10;
+  width: 95vw;
+  max-width: 1060px;
+  height: 92vh;
+  background: #f1f5f9;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.print-modal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.pmb-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.pmb-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 15px;
+  color: #0f172a;
+}
+.pmb-title svg { color: #2563eb; }
+.pmb-tabs, .pmb-lang-switch {
+  display: inline-flex;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 10px;
+  gap: 2px;
+}
+.pmb-tab, .pmb-lang-btn {
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #64748b;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.pmb-tab.is-active, .pmb-lang-btn.is-active {
+  background: #ffffff;
+  color: #1e293b;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.pmb-right { display: flex; align-items: center; gap: 10px; }
+.pmb-print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 13.5px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+  transition: all .2s;
+}
+.pmb-print-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+.pmb-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+.pmb-close-btn:hover { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
+
+.print-modal-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px 20px;
+  display: flex;
+  justify-content: center;
+  background: #cbd5e1;
+}
+.print-paper-container {
+  width: 100%;
+  max-width: 840px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Printable Worksheet Sheet Styling */
+.print-sheet {
+  background: #ffffff;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding: 40px 45px;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  box-sizing: border-box;
+}
+.ps-header {
+  border-bottom: 2px solid #000000;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+}
+.ps-top-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #334155;
+  margin-bottom: 6px;
+}
+.ps-mid-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.ps-title {
+  font-size: 21px;
+  font-weight: 900;
+  margin: 0;
+  color: #000000;
+  letter-spacing: -0.02em;
+}
+.ps-time {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+}
+.ps-directions {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #334155;
+  background: #f8fafc;
+  border-left: 3px solid #000;
+  padding: 6px 12px;
+  margin-bottom: 12px;
+}
+.ps-directions p { margin: 0; }
+.ps-info-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr;
+  gap: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.ps-field { display: flex; align-items: flex-end; gap: 6px; }
+.ps-field label { white-space: nowrap; color: #1e293b; }
+.ps-line { flex: 1; border-bottom: 1.5px solid #000; height: 16px; }
+.ps-score-val { font-weight: 900; border-bottom: 1.5px solid #000; padding: 0 8px; }
+
+/* Problems List */
+.ps-body { display: flex; flex-direction: column; gap: 16px; }
+.print-item {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 14px;
+}
+.print-item:last-child { border-bottom: none; }
+.pi-head {
+  display: grid;
+  grid-template-columns: 34px 1fr 140px;
+  gap: 14px;
+  align-items: start;
+}
+.pi-num {
+  width: 32px;
+  height: 32px;
+  background: #000;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+.pi-title-block { font-size: 14px; line-height: 1.6; color: #111; }
+.pi-text-en { font-weight: 600; color: #000; margin-bottom: 4px; }
+.pi-text-zh { font-size: 13px; color: #475569; line-height: 1.5; }
+.pi-ans-block {
+  border: 2px solid #000;
+  border-radius: 6px;
+  text-align: center;
+  padding: 4px;
+  background: #fafafa;
+}
+.pab-tag {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 2px;
+  color: #334155;
+}
+.pab-box { height: 38px; }
+.pi-scratch {
+  margin-top: 10px;
+  height: 70px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  position: relative;
+}
+.pi-scratch-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* Solutions Sheet */
+.print-sol-item {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 0;
+}
+.psi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.psi-num {
+  font-size: 13px;
+  font-weight: 900;
+  background: #000;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.psi-title { font-size: 15px; font-weight: 800; color: #000; flex: 1; }
+.psi-ans-tag {
+  background: #eff6ff;
+  border: 1.5px solid #2563eb;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.psi-tag-label { font-size: 11px; font-weight: 800; color: #1e40af; }
+.psi-tag-val { font-size: 15px; font-weight: 900; color: #1d4ed8; margin-left: 4px; }
+.psi-note { font-size: 12px; color: #b45309; margin-bottom: 6px; }
+.psi-steps { font-size: 12.5px; line-height: 1.6; color: #334155; margin-bottom: 6px; }
+.psi-step { margin-bottom: 4px; }
+.psi-step-idx { font-weight: 800; color: #000; }
+.psi-tip {
+  font-size: 12px;
+  background: #f8fafc;
+  border-left: 3px solid #2563eb;
+  padding: 6px 10px;
+  color: #1e293b;
+}
+.ps-foot {
+  margin-top: 24px;
+  padding-top: 10px;
+  border-top: 1px solid #cbd5e1;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Hidden on normal screen */
+#printRoot { display: none; }
+
+/* ------------------------------------------------------------------ *
+ * Pure Print Mode Media Query
+ * ------------------------------------------------------------------ */
+@media print {
+  @page {
+    size: letter portrait;
+    margin: 12mm 15mm;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    overflow: visible !important;
+  }
+  .grain, #sidebar, .menu-btn, .scrim, .topbar, .site-foot, #app,
+  .print-modal-backdrop, .print-modal-bar, .print-modal-host, #extras {
+    display: none !important;
+  }
+  .main, .main-inner {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+  #printRoot {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .print-sheet {
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    page-break-inside: avoid;
+  }
+  .print-page-break {
+    page-break-before: always !important;
+    margin-top: 20mm !important;
+  }
+  .pi-scratch {
+    border: 1px dashed #666666 !important;
+  }
+  .pi-num, .psi-num {
+    background: #000000 !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .pab-box {
+    border-color: #000000 !important;
+  }
+  .psi-ans-tag {
+    border: 1.5px solid #000000 !important;
+    background: #f0f0f0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

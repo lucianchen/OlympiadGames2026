@@ -55,6 +55,16 @@ window.EN_CONTENT = {
       "full": "March 2026 · Contest 5",
       "blurb": "The grand finale championship contest! Comprehensive challenge for awards, pins, and perfect scores."
     },
+    "vol1-olympiad1": {
+      "label": "Olympiad 1",
+      "full": "MOEMS Vol 1 · Contest 1 (Division E Official)",
+      "blurb": "The historic first MOEMS Division E contest from Vol 1, annotated with national accuracy rates. Features day cycles, stamp postage combinations, Gauss consecutive sums, stationery elimination, and work-crew duration."
+},
+    "vol1-olympiad2": {
+      "label": "Olympiad 2",
+      "full": "MOEMS Vol 1 · Contest 2 (Division E Official)",
+      "blurb": "The historic second MOEMS Division E contest from Vol 1, annotated with national accuracy rates. Features double transaction profit, coin replacement, seamless card tiling, bowling score averages, and digit 1 frequency."
+},
     "classic-vol1": {
       "label": "Master Set 1",
       "full": "MOEMS Vol 1–2 · Classic Master Problems 1",
@@ -1104,6 +1114,310 @@ window.EN_CONTENT = {
         }
       }
     },
+    "vol1-olympiad1": {
+      "1a": {
+            "title": "Day Cycle: 100 Days from Tuesday",
+            "answerNote": "National Accuracy: 58% · Suggested Time: 4 min",
+            "tip": "Day arithmetic rule: Days divided by 7 leaves a remainder. Advance that many days from the starting day.",
+            "steps": [
+                  {
+                        "t": "Identify the 7-day cycle",
+                        "d": "A week consists of <b>7 days</b>. Advancing any multiple of 7 days brings you back to the exact same day of the week."
+                  },
+                  {
+                        "t": "Divide by 7 to find full weeks and remainder",
+                        "d": "Divide 100 by 7:<br><b>100 ÷ 7 = 14 with a remainder of 2</b>.<br>This means 14 full weeks pass, plus <b>2 extra days</b>."
+                  },
+                  {
+                        "t": "Count 2 days forward from Tuesday",
+                        "d": "Starting from Tuesday:<br>1 day later is Wednesday;<br>2 days later is <b>Thursday</b>!"
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Multiples of 7",
+                        "d": "98 is a multiple of 7 (14 × 7 = 98). In 98 days it is Tuesday again; 2 days later is Thursday."
+                  }
+            ],
+            "follow": {
+                  "q": "If today is Friday, what day of the week will it be 50 days from now?",
+                  "hint": "50 ÷ 7 = 7 remainder 1. One day past Friday is Saturday.",
+                  "a": "Saturday"
+            }
+      },
+      "1b": {
+            "title": "Postage Combination Without Duplication",
+            "answerNote": "National Accuracy: 8% · Suggested Time: 5 min (Classic low-score trap problem)",
+            "tip": "Combination counting: Calculate (a+1)(b+1)-1 first. Check whether the LCM (15¢) can be reached by either denomination to produce duplicates.",
+            "steps": [
+                  {
+                        "t": "Theoretical combinations (multiplication principle)",
+                        "d": "For 3¢ stamps: choose 0, 1, 2, 3, or 4 stamps (<b>5 choices</b>).<br>For 5¢ stamps: choose 0, 1, 2, or 3 stamps (<b>4 choices</b>).<br>Excluding 0 stamps (0¢), theoretical non-zero combinations = 5 × 4 − 1 = <b>19 combinations</b>."
+                  },
+                  {
+                        "t": "Key check: Are there any duplicate amounts?",
+                        "d": "To produce duplicate amounts, a multiple of 3 must equal a multiple of 5. The LCM is <b>15¢</b>.<br>15¢ requires <b>five 3¢ stamps</b>, but we only have 4 stamps! Therefore, no duplicate amounts can be formed with our available stamps."
+                  },
+                  {
+                        "t": "Conclusion",
+                        "d": "All 19 combinations yield distinct postage amounts! Thus, exactly <b>19 different amounts</b> can be made."
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Systematic Table",
+                        "d": "Group by number of 5¢ stamps: With 0 fives: 3,6,9,12 (4). With 1 five: 5,8,11,14,17 (5). With 2 fives: 10,13,16,19,22 (5). With 3 fives: 15,18,21,24,27 (5). Total: 4 + 5 + 5 + 5 = 19."
+                  }
+            ],
+            "follow": {
+                  "q": "With three 2¢ stamps and two 5¢ stamps, how many different amounts of postage can be made?",
+                  "hint": "4 × 3 - 1 = 11. 10¢ requires five 2¢ stamps (we only have 3), so all 11 amounts are distinct.",
+                  "a": "11"
+            }
+      },
+      "1c": {
+            "title": "Gauss Sum: Counting Numbers 1 to 25",
+            "answerNote": "National Accuracy: 34% · Suggested Time: 5 min",
+            "tip": "Mental math for × 25: Multiply by 100 and divide by 4. 13 × 25 = 1300 ÷ 4 = 325.",
+            "steps": [
+                  {
+                        "t": "Pair first and last numbers",
+                        "d": "Pair terms from outside in:<br>1 + 25 = <b>26</b><br>2 + 24 = <b>26</b><br>3 + 23 = <b>26</b> ... Each pair sums to 26."
+                  },
+                  {
+                        "t": "Count pairs and middle term",
+                        "d": "From 1 to 24 there are 12 pairs: 12 × 26 = 312.<br>The middle term is the 13th number (13):<br>312 + 13 = <b>325</b>."
+                  },
+                  {
+                        "t": "Arithmetic progression formula",
+                        "d": "Formula: Sum = (first + last) × n ÷ 2<br>S = (1 + 25) × 25 ÷ 2 = 26 × 25 ÷ 2 = 13 × 25 = <b>325</b>."
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Average Value",
+                        "d": "The average of the 25 numbers is 13. Total sum = average × count = 13 × 25 = 325."
+                  }
+            ],
+            "follow": {
+                  "q": "Find the sum 1 + 2 + 3 + ... + 30.",
+                  "hint": "(1 + 30) × 30 ÷ 2 = 31 × 15 = 465.",
+                  "a": "465"
+            }
+      },
+      "1d": {
+            "title": "Stationery Prices: Elimination by Sum and Difference",
+            "answerNote": "National Accuracy: 16% · Suggested Time: 6 min",
+            "tip": "Symmetric linear system trick: When coefficients are reversed (2,3 and 3,2), add both equations to find the combined unit price, and subtract to find the difference!",
+            "steps": [
+                  {
+                        "t": "Add both purchases together",
+                        "d": "(2 pencils + 3 pens) + (3 pencils + 2 pens) = 78¢ + 72¢ = <b>150¢</b>.<br>5 pencils + 5 pens = 150¢.<br>Divide by 5: <b>1 pencil + 1 pen = 30¢</b>."
+                  },
+                  {
+                        "t": "Subtract to find price difference",
+                        "d": "(2 pencils + 3 pens) − (3 pencils + 2 pens) = 78¢ − 72¢ = <b>6¢</b>.<br>This means: <b>1 pen costs 6¢ more than 1 pencil</b>!"
+                  },
+                  {
+                        "t": "Solve for pencil price",
+                        "d": "Pen + Pencil = 30¢, and Pen − Pencil = 6¢.<br>Pencil = (30 − 6) ÷ 2 = <b>12¢</b>.<br>(Pen = 12 + 6 = 18¢. Check: 2×12 + 3×18 = 24 + 54 = 78¢. Correct!)"
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Substitution",
+                        "d": "Since 1 pencil + 1 pen = 30¢, 3 pencils + 3 pens = 90¢. Subtract 3 pencils + 2 pens = 72¢ to get 1 pen = 18¢, so 1 pencil = 12¢."
+                  }
+            ],
+            "follow": {
+                  "q": "If 4 apples and 3 pears cost $65, and 3 apples and 4 pears cost $61, how much does one apple cost?",
+                  "hint": "Sum: 7 apples + 7 pears = 126 => 1 apple + 1 pear = 18. Diff: 1 apple - 1 pear = 4. Apple = (18+4)/2 = $11.",
+                  "a": "11"
+            }
+      },
+      "1e": {
+            "title": "Work Crew & Person-Days",
+            "answerNote": "National Accuracy: 10% · Suggested Time: 5 min",
+            "tip": "Work-rate invariant: Total effort = Persons × Days. 4 people sharing 60 person-days: 60 ÷ 4 = 15 days.",
+            "steps": [
+                  {
+                        "t": "Convert 3-person crew time to days",
+                        "d": "Notice the note: <b>each week contains 6 work days</b>.<br>3 weeks and 2 days = 3 × 6 + 2 = <b>20 work days</b>."
+                  },
+                  {
+                        "t": "Calculate total person-days required",
+                        "d": "3 people working 20 days equals:<br>3 people × 20 days = <b>60 person-days</b>."
+                  },
+                  {
+                        "t": "Calculate time for 4-person crew",
+                        "d": "With 4 people working together:<br>Days required = 60 person-days ÷ 4 people = <b>15 days</b>."
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Inverse Proportion",
+                        "d": "Ratio of people is 4/3, so ratio of time required is 3/4. 20 days × 3/4 = 15 days."
+                  }
+            ],
+            "follow": {
+                  "q": "How many days would it take a crew of 5 people to finish the same job?",
+                  "hint": "60 person-days ÷ 5 people = 12 days.",
+                  "a": "12 days"
+            }
+      }
+},
+    "vol1-olympiad2": {
+      "1a": {
+            "title": "Double Transaction Profit",
+            "answerNote": "National Accuracy: 36% · Suggested Time: 4 min (Famous brain-teaser trap)",
+            "tip": "Profit golden rule: Profit = Total Revenue − Total Expenses. Track cash in and out cleanly!",
+            "steps": [
+                  {
+                        "t": "Separate into two independent deals",
+                        "d": "Deal 1: Bought for $10, sold for $15.<br>Profit on Deal 1 = 15 − 10 = <b>$5</b>."
+                  },
+                  {
+                        "t": "Analyze second deal",
+                        "d": "Deal 2: Bought for $20, sold for $25.<br>Profit on Deal 2 = 25 − 20 = <b>$5</b>."
+                  },
+                  {
+                        "t": "Combine total profit",
+                        "d": "Total profit = 5 + 5 = <b>made $10</b>.<br>Alternatively, Total spent = 10 + 20 = $30; Total received = 15 + 25 = $40. Net = 40 − 30 = <b>made $10</b>."
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Bank Ledger",
+                        "d": "Start with $20 in wallet. Buy dog (-$10) -> $10. Sell (+$15) -> $25. Buy (-$20) -> $5. Sell (+$25) -> $30. Net gain = $30 - $20 = $10."
+                  }
+            ],
+            "follow": {
+                  "q": "Bought for $50, sold for $60, bought back for $70, sold for $80. Made or lost how much?",
+                  "hint": "(60-50) + (80-70) = 10 + 10 = made $20.",
+                  "a": "made $20"
+            }
+      },
+      "1b": {
+            "title": "Supposition: Nickels and Quarters",
+            "answerNote": "National Accuracy: 33% · Suggested Time: 5 min",
+            "tip": "Supposition method: Deficit in cents ÷ value difference per coin = number of higher-value coins.",
+            "steps": [
+                  {
+                        "t": "Assume all 30 coins are nickels",
+                        "d": "Total amount = $4.10 = <b>410¢</b>. Coin count = 30.<br>If all 30 were 5¢ nickels: 30 × 5¢ = <b>150¢</b>."
+                  },
+                  {
+                        "t": "Determine shortfall and single-coin delta",
+                        "d": "Shortfall = 410¢ − 150¢ = <b>260¢</b>.<br>Replacing 1 nickel with 1 quarter gains 25¢ − 5¢ = <b>20¢</b>."
+                  },
+                  {
+                        "t": "Find coin counts",
+                        "d": "Quarters needed = 260¢ ÷ 20¢ = <b>13 quarters</b>.<br>Nickels = 30 − 13 = <b>17 nickels</b>.<br>(Check: 17×5 + 13×25 = 85 + 325 = 410¢. Correct!)"
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Assume all quarters",
+                        "d": "30 × 25¢ = 750¢. Excess = 750 − 410 = 340¢. 340 ÷ 20 = 17 nickels."
+                  }
+            ],
+            "follow": {
+                  "q": "20 coins of dimes (10¢) and quarters (25¢) total $3.80. How many of each?",
+                  "hint": "Assume all dimes: 200¢. Shortfall 180¢. 180 ÷ 15 = 12 quarters, 8 dimes.",
+                  "a": "8 dimes, 12 quarters"
+            }
+      },
+      "1c": {
+            "title": "Grid Card Tiling and Unit Conversion",
+            "answerNote": "National Accuracy: 9% · Suggested Time: 5 min",
+            "tip": "Geometric cutting check: Area ratio only gives an upper bound. You must verify if length and width divide evenly without waste.",
+            "steps": [
+                  {
+                        "t": "Convert feet to inches",
+                        "d": "<b>1 foot = 12 inches</b>.<br>Large sheet dimensions:<br>Length: 3 feet = 3 × 12 = <b>36 inches</b>;<br>Width: 2 feet = 2 × 12 = <b>24 inches</b>."
+                  },
+                  {
+                        "t": "Check perfect grid division",
+                        "d": "Along 36 in side: 36 ÷ 3 in = <b>12 columns</b> (exact, no waste).<br>Along 24 in side: 24 ÷ 2 in = <b>12 rows</b> (exact, no waste)."
+                  },
+                  {
+                        "t": "Multiply to find total cards",
+                        "d": "Total cards = 12 × 12 = <b>144 cards</b>.<br>Area check: (36 × 24) ÷ (2 × 3) = 864 ÷ 6 = 144."
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Square foot scaling",
+                        "d": "1 sq ft = 144 sq in. Sheet is 6 sq ft = 6 × 144 sq in. Card is 6 sq in. (6 × 144) ÷ 6 = 144."
+                  }
+            ],
+            "follow": {
+                  "q": "How many 3 in by 4 in cards can be cut from a 1 ft by 1 ft sheet?",
+                  "hint": "12 in by 12 in. 12 ÷ 3 = 4, 12 ÷ 4 = 3. 4 × 3 = 12 cards.",
+                  "a": "12"
+            }
+      },
+      "1d": {
+            "title": "Target Average Baseline",
+            "answerNote": "National Accuracy: 34% · Suggested Time: 5 min",
+            "tip": "Deviation from average shortcut: 139 is -6, 143 is -2, 144 is -1. Total deficit = -9. Fourth game must be 145 + 9 = 154!",
+            "steps": [
+                  {
+                        "t": "Calculate required 4-game total",
+                        "d": "To average 145 across 4 games, total score must be:<br>4 × 145 = <b>580 points</b>."
+                  },
+                  {
+                        "t": "Sum first three games",
+                        "d": "First 3 games total = 139 + 143 + 144 = <b>426 points</b>."
+                  },
+                  {
+                        "t": "Find required 4th game score",
+                        "d": "Game 4 needed = 580 − 426 = <b>154 points</b>."
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Baseline Deviations",
+                        "d": "Deficits from 145: (145-139) + (145-143) + (145-144) = 6 + 2 + 1 = 9. Needed = 145 + 9 = 154."
+                  }
+            ],
+            "follow": {
+                  "q": "Three test scores are 88, 92, and 94. What must the 4th score be to average 93?",
+                  "hint": "Baseline 93: -5, -1, +1. Deficit is 5. 93 + 5 = 98.",
+                  "a": "98"
+            }
+      },
+      "1e": {
+            "title": "Frequency of Digit 1 in 500 Pages",
+            "answerNote": "National Accuracy: 8% · Suggested Time: 6 min (Classic Olympiad counting)",
+            "tip": "Digit counting rule: Separate by place values (units, tens, hundreds). In 100 consecutive numbers, each digit appears 10 times in units and 10 times in tens.",
+            "steps": [
+                  {
+                        "t": "Classify by place values",
+                        "d": "Count the appearances of digit 1 separately in the <b>units digit</b>, <b>tens digit</b>, and <b>hundreds digit</b>."
+                  },
+                  {
+                        "t": "Count units and tens digits",
+                        "d": "• <b>Units digit 1</b>: Occurs once every 10 numbers (1, 11, 21 ... 491): 500 ÷ 10 = <b>50 times</b>.<br>• <b>Tens digit 1</b>: Occurs 10 times per century (10–19, 110–119, ...): 5 centuries × 10 = <b>50 times</b>."
+                  },
+                  {
+                        "t": "Count hundreds digit and sum",
+                        "d": "• <b>Hundreds digit 1</b>: Appears from page 100 to 199: exactly <b>100 times</b>.<br>• Total = 50 + 50 + 100 = <b>200 times</b>!"
+                  }
+            ],
+            "methods": [
+                  {
+                        "title": "Method 2 · Symmetric Counting",
+                        "d": "In numbers 000–499 (500 numbers): Hundreds place has 1 in 1/5 of numbers (100). Tens has 1 in 1/10 (50). Units has 1 in 1/10 (50). Total = 200."
+                  }
+            ],
+            "follow": {
+                  "q": "How many times does digit 1 appear in a 300-page book?",
+                  "hint": "Units: 30. Tens: 30. Hundreds (100–199): 100. Total = 160.",
+                  "a": "160"
+            }
+      }
+},
     "classic-vol1": {
       "1a": {
         "title": "Gauss Pairing Sum 1 to 50",

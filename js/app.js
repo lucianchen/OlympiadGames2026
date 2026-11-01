@@ -486,7 +486,242 @@
   /* ---------------------------------------------------------------- */
   /* pages                                                            */
   /* ---------------------------------------------------------------- */
-  function renderHero(c) {
+
+  /* ---------------------------------------------------------------- */
+  /* print worksheet generator & modal                               */
+  /* ---------------------------------------------------------------- */
+  const printState = {
+    contest: null,
+    mode: 'student', // 'student' | 'solutions' | 'both'
+    bilingual: false
+  };
+
+  function generatePrintHtml(c, mode, bilingual) {
+    const contestTitle = cv(c, 'full') || (cv(c, 'label') + ' · ' + c.year);
+    
+    // 1. Student Test Sheet
+    const questionsHtml = c.questions.map((q) => {
+      const qNum = q.label;
+      return `
+        <div class="print-item">
+          <div class="pi-head">
+            <div class="pi-num">${qNum}</div>
+            <div class="pi-title-block">
+              <div class="pi-text-en">${q.en}</div>
+              ${bilingual ? `<div class="pi-text-zh">${q.zh}</div>` : ''}
+            </div>
+            <div class="pi-ans-block">
+              <div class="pab-tag">${T('print.ansLabel')}</div>
+              <div class="pab-box"></div>
+            </div>
+          </div>
+          <div class="pi-scratch">
+            <span class="pi-scratch-label">${T('print.workspace')}</span>
+          </div>
+        </div>`;
+    }).join('');
+
+    const testSheet = `
+      <section class="print-sheet print-test-sheet">
+        <header class="ps-header">
+          <div class="ps-top-row">
+            <div class="ps-org">MOEMS · Mathematical Olympiads for Elementary and Middle Schools</div>
+            <div class="ps-badge">Division E · Grades 4–6</div>
+          </div>
+          <div class="ps-mid-row">
+            <h1 class="ps-title">${contestTitle}</h1>
+            <div class="ps-time">${T('print.time')}</div>
+          </div>
+          <div class="ps-directions">
+            <p>${T('print.directions')}</p>
+          </div>
+          <div class="ps-info-grid">
+            <div class="ps-field"><label>${T('print.name')}:</label><span class="ps-line"></span></div>
+            <div class="ps-field"><label>${T('print.date')}:</label><span class="ps-line"></span></div>
+            <div class="ps-field ps-score-field"><label>${T('print.score')}:</label><span class="ps-score-val">______ / 5</span></div>
+          </div>
+        </header>
+
+        <div class="ps-body">
+          ${questionsHtml}
+        </div>
+
+        <footer class="ps-foot">
+          <span>Mathematical Olympiads Division E · Home-Learning Practice Worksheet</span>
+          <span>Page 1 of ${mode === 'both' ? '2' : '1'}</span>
+        </footer>
+      </section>`;
+
+    // 2. Solutions Sheet
+    const solutionsHtml = c.questions.map((q) => {
+      const qNum = q.label;
+      const qTitle = qv(c, q, 'title');
+      const ansVal = qv(c, q, 'answer');
+      const note = qv(c, q, 'answerNote');
+      const tip = qv(c, q, 'tip');
+      const steps = qv(c, q, 'steps') || [];
+
+      return `
+        <div class="print-sol-item">
+          <div class="psi-top">
+            <span class="psi-num">${qNum}</span>
+            <span class="psi-title">${qTitle}</span>
+            <div class="psi-ans-tag">
+              <span class="psi-tag-label">${T('q.answerLabel')}:</span>
+              <strong class="psi-tag-val">${ansVal}</strong>
+            </div>
+          </div>
+          ${note ? `<div class="psi-note">★ ${note}</div>` : ''}
+          <div class="psi-steps">
+            ${steps.map((s, idx) => `
+              <div class="psi-step">
+                <span class="psi-step-idx">Step ${idx + 1}. ${s.t}:</span>
+                <span class="psi-step-text">${s.d.replace(/<br\s*[\/]?>/gi, ' ')}</span>
+              </div>
+            `).join('')}
+          </div>
+          ${tip ? `
+            <div class="psi-tip">
+              <b>Key Strategy:</b> ${tip}
+            </div>` : ''}
+        </div>`;
+    }).join('');
+
+    const solutionsSheet = `
+      <section class="print-sheet print-sol-sheet ${mode === 'both' ? 'print-page-break' : ''}">
+        <header class="ps-header ps-sol-header">
+          <div class="ps-top-row">
+            <div class="ps-org">MOEMS Division E (Grades 4–6)</div>
+            <div class="ps-badge">${contestTitle}</div>
+          </div>
+          <div class="ps-mid-row">
+            <h2 class="ps-title">${T('print.solTitle')}</h2>
+          </div>
+        </header>
+
+        <div class="ps-body ps-sol-body">
+          ${solutionsHtml}
+        </div>
+
+        <footer class="ps-foot">
+          <span>MOEMS Division E · Step-by-Step Strategic Explanations & Answer Key</span>
+          <span>${mode === 'both' ? 'Page 2 of 2' : 'Page 1 of 1'}</span>
+        </footer>
+      </section>`;
+
+    if (mode === 'student') return testSheet;
+    if (mode === 'solutions') return solutionsSheet;
+    return testSheet + solutionsSheet;
+  }
+
+  function openPrintModal(c) {
+    printState.contest = c;
+    printState.bilingual = !isEn();
+    const host = $('#printModalHost');
+    const printRoot = $('#printRoot');
+    if (!host || !printRoot) return;
+
+    host.hidden = false;
+    document.body.classList.add('modal-open');
+
+    function updatePreview() {
+      const html = generatePrintHtml(c, printState.mode, printState.bilingual);
+      const previewArea = $('#modalPreviewPaper', host);
+      if (previewArea) previewArea.innerHTML = html;
+      printRoot.innerHTML = html;
+    }
+
+    host.innerHTML = `
+      <div class="print-modal-backdrop" id="printModalBackdrop"></div>
+      <div class="print-modal-dialog" role="dialog" aria-modal="true" aria-label="${T('print.title')}">
+        <div class="print-modal-bar">
+          <div class="pmb-left">
+            <div class="pmb-title">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>${T('print.title')}</span>
+            </div>
+            <div class="pmb-tabs" role="tablist">
+              <button class="pmb-tab ${printState.mode === 'student' ? 'is-active' : ''}" data-mode="student" type="button">${T('print.student')}</button>
+              <button class="pmb-tab ${printState.mode === 'solutions' ? 'is-active' : ''}" data-mode="solutions" type="button">${T('print.solutions')}</button>
+              <button class="pmb-tab ${printState.mode === 'both' ? 'is-active' : ''}" data-mode="both" type="button">${T('print.both')}</button>
+            </div>
+            <div class="pmb-lang-switch">
+              <button class="pmb-lang-btn ${!printState.bilingual ? 'is-active' : ''}" data-plang="en" type="button">${T('print.langEn')}</button>
+              <button class="pmb-lang-btn ${printState.bilingual ? 'is-active' : ''}" data-plang="bi" type="button">${T('print.langBilingual')}</button>
+            </div>
+          </div>
+          <div class="pmb-right">
+            <button class="pmb-print-btn" id="modalPrintBtn" type="button">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>${T('print.now')}</span>
+            </button>
+            <button class="pmb-close-btn" id="modalCloseBtn" type="button" aria-label="${T('print.close')}">✕</button>
+          </div>
+        </div>
+        <div class="print-modal-scroll">
+          <div class="print-paper-container" id="modalPreviewPaper"></div>
+        </div>
+      </div>
+    `;
+
+    updatePreview();
+
+    $$('.pmb-tab', host).forEach(tab => {
+      tab.addEventListener('click', () => {
+        $$('.pmb-tab', host).forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        printState.mode = tab.dataset.mode;
+        updatePreview();
+      });
+    });
+
+    $$('.pmb-lang-btn', host).forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('.pmb-lang-btn', host).forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        printState.bilingual = btn.dataset.plang === 'bi';
+        updatePreview();
+      });
+    });
+
+    const close = () => {
+      host.hidden = true;
+      document.body.classList.remove('modal-open');
+    };
+
+    $('#modalCloseBtn', host).addEventListener('click', close);
+    $('#printModalBackdrop', host).addEventListener('click', close);
+    $('#modalPrintBtn', host).addEventListener('click', () => {
+      window.print();
+    });
+
+    const escHandler = (e) => {
+      if (e.key === 'Escape' && !host.hidden) {
+        close();
+        window.removeEventListener('keydown', escHandler);
+      }
+    };
+    window.addEventListener('keydown', escHandler);
+  }
+
+  // Handle native window.print / Cmd+P
+  window.addEventListener('beforeprint', () => {
+    const c = currentContest();
+    const printRoot = $('#printRoot');
+    if (c && printRoot && (!printRoot.innerHTML || printRoot.innerHTML.trim() === '')) {
+      printRoot.innerHTML = generatePrintHtml(c, printState.mode || 'student', printState.bilingual);
+    }
+  });
+
+    function renderHero(c) {
     const done = c.questions.filter((q) => Store.isDone(qKey(c, q))).length;
     const pct = c.questions.length ? done / c.questions.length : 0;
     const dash = (2 * Math.PI * 24 * pct).toFixed(1);
@@ -506,6 +741,16 @@
             <li><b>${c.duration}</b> ${T('hero.minutes', { n: '' }).trim()}</li>
             <li><b>${c.questions.length}</b> ${T('hero.animations', { n: '' }).trim()}</li>
           </ul>
+          <div class="hero-actions">
+            <button class="btn btn-print-sheet" id="printSetBtn" type="button" aria-label="${T('print.btn')}">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>${T('print.btn')}</span>
+            </button>
+          </div>
         </div>
         <div class="hero-progress">
           <svg viewBox="0 0 60 60" class="ring" aria-hidden="true">
@@ -558,6 +803,11 @@
         navigate(state.month, state.contest, chip.dataset.qid);
       });
     });
+
+    const printBtn = $('#printSetBtn');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => openPrintModal(c));
+    }
 
     buildExplainer(c, q);
     renderExtras(c, q);

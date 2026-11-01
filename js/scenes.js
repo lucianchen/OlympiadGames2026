@@ -1292,6 +1292,113 @@
   });
 
   
+
+  // ------------------------------------------------------------------
+  // Vol 1 Olympiad 1 & 2 Scenes
+  // ------------------------------------------------------------------
+  const vol1Configs = [
+    {
+      id: 'vol1_1a',
+      title: '100 Days from Tuesday (Cycle of 7)',
+      txt1: '100 ÷ 7 = 14 full weeks + 2 extra days',
+      txt2: 'Tuesday + 2 days = Thursday',
+      ansStr: 'Thursday',
+      stamp: 'Day <b>Thursday</b>'
+    },
+    {
+      id: 'vol1_1b',
+      title: 'Four 3¢ & Three 5¢ Stamps Combinations',
+      txt1: '5 choices (3¢) × 4 choices (5¢) − 1 (empty) = 19 combinations',
+      txt2: 'LCM is 15¢ (needs five 3¢ stamps, only 4 available) → No duplicates!',
+      ansNum: 19,
+      stamp: 'Amounts <b>19</b>'
+    },
+    {
+      id: 'vol1_1c',
+      title: 'Counting Numbers 1 to 25 (Gauss Pairing)',
+      txt1: 'Pairs: (1+25)=26, (2+24)=26 ... 12 pairs of 26 + middle 13',
+      txt2: 'Sum = 25 × 26 ÷ 2 = 13 × 25 = 325',
+      ansNum: 325,
+      stamp: 'Sum <b>325</b>'
+    },
+    {
+      id: 'vol1_1d',
+      title: 'Pencil & Pen Price Elimination',
+      txt1: 'Sum: 5 pencils + 5 pens = 150¢ → 1 pencil + 1 pen = 30¢',
+      txt2: 'Diff: 1 pen − 1 pencil = 6¢ → 1 pencil = (30 − 6) ÷ 2 = 12¢',
+      ansStr: '12¢',
+      stamp: 'Pencil <b>12¢</b>'
+    },
+    {
+      id: 'vol1_1e',
+      title: 'Work Crew & Person-Days Invariance',
+      txt1: '3 people × 20 days (6 days/week) = 60 person-days total',
+      txt2: '4 people crew: 60 person-days ÷ 4 people = 15 days',
+      ansStr: '15 days',
+      stamp: 'Time <b>15 days</b>'
+    },
+    {
+      id: 'vol1_2a',
+      title: 'Double Transaction Profit Analysis',
+      txt1: 'Deal 1: Buy $10, Sell $15 → Profit $5',
+      txt2: 'Deal 2: Buy $20, Sell $25 → Profit $5 | Total: 5 + 5 = $10',
+      ansStr: 'made $10',
+      stamp: 'Result <b>made $10</b>'
+    },
+    {
+      id: 'vol1_2b',
+      title: '30 Coins: Nickels & Quarters ($4.10)',
+      txt1: 'Assume 30 nickels: 30 × 5¢ = 150¢ (Deficit: 410 − 150 = 260¢)',
+      txt2: 'Swap +20¢ each: 260 ÷ 20 = 13 quarters, 30 − 13 = 17 nickels',
+      ansStr: '17 nickels, 13 quarters',
+      stamp: 'Coins <b>17 nickels, 13 quarters</b>'
+    },
+    {
+      id: 'vol1_2c',
+      title: 'Cut 2"×3" Cards from 2\'×3\' Sheet (24"×36")',
+      txt1: 'Length: 36" ÷ 3" = 12 cols | Width: 24" ÷ 2" = 12 rows',
+      txt2: 'Total cards: 12 × 12 = 144 cards (0 waste)',
+      ansNum: 144,
+      stamp: 'Cards <b>144</b>'
+    },
+    {
+      id: 'vol1_2d',
+      title: 'Bowling 4-Game Target Average 145',
+      txt1: 'Target total: 4 × 145 = 580 | Games 1–3: 139 + 143 + 144 = 426',
+      txt2: 'Game 4: 580 − 426 = 154 (or Deviations: +6 + 2 + 1 = 9 → 145 + 9 = 154)',
+      ansNum: 154,
+      stamp: 'Score <b>154</b>'
+    },
+    {
+      id: 'vol1_2e',
+      title: 'Frequency of Digit 1 in 500 Pages',
+      txt1: 'Units place: 500 ÷ 10 = 50 | Tens place: 5 centuries × 10 = 50',
+      txt2: 'Hundreds place (100–199): 100 | Total: 50 + 50 + 100 = 200',
+      ansNum: 200,
+      stamp: 'Count <b>200</b>'
+    }
+  ];
+
+  vol1Configs.forEach(m => {
+    SCENES['q_' + m.id] = makeBasicScene({
+      title: m.title,
+      svgContent: `
+        <g transform="translate(80, 110)">
+          <rect width="480" height="46" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+          <text x="240" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1e293b">${m.txt1}</text>
+        </g>
+        <g class="step-item step-0" transform="translate(80, 175)">
+          <text x="240" y="24" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">${m.txt2}</text>
+        </g>
+      `,
+      ansLabel: 'Answer',
+      numericAnswer: m.ansNum,
+      answerStr: m.ansStr,
+      stamp: m.stamp,
+      finalStep: 1
+    });
+  });
+
   // ------------------------------------------------------------------
   // Classics Scenes (Vol 1 - 4 & Creative Problem Solving)
   // ------------------------------------------------------------------
