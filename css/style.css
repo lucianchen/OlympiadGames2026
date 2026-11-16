@@ -1656,3 +1656,12 @@ html[lang="en"] .brand-name { font-size: 16px; }
     print-color-adjust: exact !important;
   }
 }
+
+@media print {
+  body * { visibility: hidden; }
+  #contest-content, #contest-content * { visibility: visible; }
+  #contest-content { position: absolute; left: 0; top: 0; }
+  .no-print { display: none !important; }
+}
+.print-btn { background: #ffcf5c; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+

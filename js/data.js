@@ -33,7 +33,7 @@ window.MONTHS = [
     "label_en": "Dec",
     "en": "December",
     "contests": [
-      "dec-2025-26"
+      "dec-2025-26", "dec-mock-1", "dec-mock-2", "dec-mock-3"
     ]
   },
   {
@@ -66,6 +66,37 @@ window.MONTHS = [
 ];
 
 window.CONTESTS = [
+  {
+    'id': 'dec-mock-1',
+    'month': 'dec',
+    'label': 'Mock 1',
+    'year': '2026-27',
+    'full': 'December 2026 · Practice Mock 1',
+    'status': 'ready',
+    'duration': 30,
+    'questions': []
+  },
+  {
+    'id': 'dec-mock-2',
+    'month': 'dec',
+    'label': 'Mock 2',
+    'year': '2026-27',
+    'full': 'December 2026 · Practice Mock 2',
+    'status': 'ready',
+    'duration': 30,
+    'questions': []
+  },
+  {
+    'id': 'dec-mock-3',
+    'month': 'dec',
+    'label': 'Mock 3',
+    'year': '2026-27',
+    'full': 'December 2026 · Practice Mock 3',
+    'status': 'ready',
+    'duration': 30,
+    'questions': []
+  },
+
   {
     "id": "2024-25",
     "month": "nov",
@@ -1542,7 +1573,7 @@ window.CONTESTS = [
     ]
   },
   {
-    "id": "dec-2025-26",
+    "id": "dec-2025-26", "dec-mock-1", "dec-mock-2", "dec-mock-3",
     "month": "dec",
     "label": "第 2 场",
     "year": "2025–26",
