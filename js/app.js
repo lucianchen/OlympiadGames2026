@@ -822,3 +822,16 @@
   }
   renderPage();
 })();
+
+// Dynamic Print Button Injection
+window.addEventListener('load', () => {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+        const btn = document.createElement('button');
+        btn.id = 'print-btn';
+        btn.textContent = 'Print / 打印';
+        btn.style.cssText = 'background:#ffcf5c; border:none; padding:10px; margin:10px; cursor:pointer; border-radius:5px; width:80%; font-weight:bold;';
+        btn.onclick = () => window.print();
+        sidebar.appendChild(btn);
+    }
+});
