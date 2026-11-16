@@ -34,6 +34,37 @@ window.MONTHS = [
     en: 'March',
     contests: ['mar-2025-26']
   }
+
+  {
+    'id': 'dec-mock-1',
+    'month': 'dec',
+    'label': 'Mock 1',
+    'year': '2026-27',
+    'full': 'December 2026 · Practice Mock 1',
+    'status': 'ready',
+    'duration': 30,
+    'questions': []
+  },
+  {
+    'id': 'dec-mock-2',
+    'month': 'dec',
+    'label': 'Mock 2',
+    'year': '2026-27',
+    'full': 'December 2026 · Practice Mock 2',
+    'status': 'ready',
+    'duration': 30,
+    'questions': []
+  },
+  {
+    'id': 'dec-mock-3',
+    'month': 'dec',
+    'label': 'Mock 3',
+    'year': '2026-27',
+    'full': 'December 2026 · Practice Mock 3',
+    'status': 'ready',
+    'duration': 30,
+    'questions': []
+  },
 ];
 
 window.CONTESTS = [
@@ -1588,4 +1619,35 @@ window.CONTESTS = [
     ],
     "questions": []
   }
+
+  {
+    'id': 'dec-mock-1',
+    'month': 'dec',
+    'label': 'Mock 1',
+    'year': '2026-27',
+    'full': 'December 2026 · Practice Mock 1',
+    'status': 'ready',
+    'duration': 30,
+    'questions': []
+  },
+  {
+    'id': 'dec-mock-2',
+    'month': 'dec',
+    'label': 'Mock 2',
+    'year': '2026-27',
+    'full': 'December 2026 · Practice Mock 2',
+    'status': 'ready',
+    'duration': 30,
+    'questions': []
+  },
+  {
+    'id': 'dec-mock-3',
+    'month': 'dec',
+    'label': 'Mock 3',
+    'year': '2026-27',
+    'full': 'December 2026 · Practice Mock 3',
+    'status': 'ready',
+    'duration': 30,
+    'questions': []
+  },
 ];
