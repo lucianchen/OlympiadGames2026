@@ -86,6 +86,7 @@
     if (!monthObj.contests.includes(contest)) contest = monthObj.contests[0];
     const c = getContest(month, contest);
     if (c && c.status === 'ready' && !c.questions.some((q) => q.id === qid)) {
+      if (!item) return; // 安全补丁
       qid = c.questions[0].id;
     }
     return { month, contest, qid };
