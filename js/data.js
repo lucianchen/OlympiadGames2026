@@ -14,6 +14,40 @@ window.MONTHS = [
       "mock-3"
     ]
   },
+{
+  "id": "dec-practice-1",
+  "month": "dec",
+  "label": "Practice 1",
+  "year": "2026-27",
+  "full": "December 2026 · Practice Set 1",
+  "status": "ready",
+  "duration": 30,
+  "questions": [
+    {
+      "id": "7a",
+      "label": "7A",
+      "title": "Palimage Chain Sums",
+      "en": "Add 354 and its palimage to get X. Add X and its palimage to get Y. Add Y and its palimage to get Z. What is Z?",
+      "zh": "把 354 与它的倒序数相加，和记为 X；再把 X 与它的倒序数相加，和记为 Y；再把 Y 与它的倒序数相加，和记为 Z。求 Z。",
+      "answer": "6666",
+      "scene": "q7a",
+      "steps": [
+        {
+          "t": "第一步",
+          "d": "354 + 453 = 807"
+        },
+        {
+          "t": "第二步",
+          "d": "807 + 708 = 1515"
+        },
+        {
+          "t": "第三步",
+          "d": "1515 + 5151 = 6666"
+        }
+      ]
+    }
+  ]
+},
   {
     "id": "classics",
     "label": "经典真题",
@@ -33,7 +67,7 @@ window.MONTHS = [
     "label_en": "Dec",
     "en": "December",
     "contests": [
-      "dec-2025-26"
+      "dec-practice-1"
     ]
   },
   {
@@ -1542,7 +1576,7 @@ window.CONTESTS = [
     ]
   },
   {
-    "id": "dec-2025-26",
+    "id": "dec-practice-1",
     "month": "dec",
     "label": "第 2 场",
     "year": "2025–26",
